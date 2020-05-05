@@ -33,7 +33,7 @@ MindMap.show = function (containerId, mindMapOptions) {
         theme: 'primary'
     }
 
-    let mindmap = jsMind.show(options, mind);
+    let mindmap = window.jsMind.show(options, mind);
 
     mindmap.add_node("sub2", "sub23", "new node", { "background-color": "red" });
     mindmap.set_node_color('sub21', 'green', '#ccc');

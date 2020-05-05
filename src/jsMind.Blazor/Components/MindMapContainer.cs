@@ -12,7 +12,7 @@ namespace JsMind.Blazor.Components
     /// </summary>
     public class MindMapContainer : ComponentBase
     {
-        private readonly string _containerId = "jsmind_container_" + Guid.NewGuid();
+        private readonly string _containerId = "jsMind_container_" + Guid.NewGuid();
 
         [Inject]
         private IJSRuntime Runtime { get; set; }
@@ -42,10 +42,7 @@ namespace JsMind.Blazor.Components
             if (firstRender)
             {
                 await Runtime.InvokeVoidAsync("MindMap.show", _containerId, Options);
-                await Runtime.InvokeVoidAsync("MindMap.setDocumentTitle", "stef");
             }
-
-            //return base.OnAfterRenderAsync(firstRender);
         }
     }
 }

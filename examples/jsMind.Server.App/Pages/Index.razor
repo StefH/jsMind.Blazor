@@ -1,13 +1,66 @@
 ﻿@page "/"
+@using JsMind.Blazor.Models
 
 <h1>jsMind Demo</h1>
 
-<MindMapContainer options="@options" style="width:800px; height:600px; border:solid 1px #ccc; background:#f4f4f4;" />
+<MindMapContainer options="@_options" data="@_treeData" style="border:solid 1px blue; background:#f4f4f4;" />
+
+<MindMapContainer options="@_options" data="@_arrayData" style="border:solid 1px red; background:#f4f4f4;" />
 
 @code
 {
-    MindMapOptions options = new MindMapOptions
+    readonly MindMapOptions _options = new MindMapOptions
     {
+        Editable = true
+    };
 
+    readonly MindMapData _treeData = new MindMapData
+    {
+        RootNode = new MindMapTreeNode
+        {
+            IsRoot = true,
+            Id = "root",
+            Topic = "-Root-",
+            Children = new List<MindMapTreeNode>
+    {
+                new MindMapTreeNode
+                {
+                    Id = "sub1",
+                    Topic = "sub1-right"
+                },
+                new MindMapTreeNode
+                {
+                    Id = "sub2",
+                    Topic = "sub2-left",
+                    Direction = MindMapNodeDirection.Left
+                }
+            }
+        }
+    };
+
+    readonly MindMapData _arrayData = new MindMapData
+    {
+        Nodes = new List<MindMapTreeNode>
+        {
+            new MindMapTreeNode
+            {
+                IsRoot = true,
+                Id = "root",
+                Topic = "-Root-"
+            },
+            new MindMapTreeNode
+            {
+                Id = "sub1",
+                Topic = "sub1-right",
+                ParentId = "root"
+            },
+            new MindMapTreeNode
+            {
+                Id = "sub2",
+                Topic = "sub2-left",
+                ParentId = "root",
+                Direction = MindMapNodeDirection.Left
+            }
+        }
     };
 }

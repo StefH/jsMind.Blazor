@@ -1,4 +1,6 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Collections.Generic;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace JsMind.Blazor.Events.Interop
 {
@@ -7,7 +9,7 @@ namespace JsMind.Blazor.Events.Interop
         [JsonPropertyName("evt")]
         public string Type { get; set; }
 
-        public object[] Data { get; set; }
+        public JsonElement[] Data { get; set; }
 
         [JsonPropertyName("node")]
         public string NodeId { get; set; }

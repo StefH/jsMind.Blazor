@@ -1,4 +1,7 @@
 ﻿var MindMap = MindMap || {};
+var BlazorLocalStorage = BlazorLocalStorage || {};
+
+const instances = {};
 
 MindMap.setDocumentTitle = function (title) {
     document.title = title;
@@ -15,8 +18,8 @@ MindMap.show = function (dotnetReference, containerId, mindMapOptions, mindMapDa
         "data": mindMapData.data
     };
 
-    console.log(mindMapData);
-    console.log(mind);
+    //console.log(mindMapData);
+    //console.log(mind);
 
     const options = {
         container: containerId,
@@ -24,31 +27,66 @@ MindMap.show = function (dotnetReference, containerId, mindMapOptions, mindMapDa
         theme: mindMapOptions.theme
     }
 
-    const mindmap = window.jsMind.show(options, mind);
+    const mm = window.jsMind.show(options, mind);
 
-    const eventHandler = async function (type, data) {
+    const eventHandler = function (type, data) {
         // show: 1, resize: 2, edit: 3, select: 4
         switch (type) {
             case 1:
-                await dotnetReference.invokeMethodAsync('OnShowCallback', data);
+                dotnetReference.invokeMethodAsync("OnShowCallback", data);
                 break;
 
             case 2:
-                await dotnetReference.invokeMethodAsync('OnResizeCallback', data);
+                dotnetReference.invokeMethodAsync("OnResizeCallback", data);
                 break;
 
             case 3:
-                await dotnetReference.invokeMethodAsync('OnEditCallback', data);
+                dotnetReference.invokeMethodAsync("OnEditCallback", data);
                 break;
 
             case 4:
-                await dotnetReference.invokeMethodAsync('OnSelectCallback', data);
+                dotnetReference.invokeMethodAsync("OnSelectCallback", data);
                 break;
         }
 
     }
-    mindmap.add_event_listener(eventHandler);
+    mm.add_event_listener(eventHandler);
 
-    //mindmap.add_node("sub2", "sub23", "new node", { "background-color": "red" });
-    //mindmap.set_node_color('sub21', 'green', '#ccc');
+    // Keep a reference to the javascript MindMap object
+    instances[containerId] = mm;
 };
+
+MindMap.dispose = function (containerId) {
+    instances[containerId] = null;
+}
+
+MindMap.addNode = function (containerId, id, parentId, topic, data) {
+    instances[containerId].add_node(id, parentId, topic, data);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+BlazorLocalStorage.get = function (key) {
+    return key in localStorage ? JSON.parse(localStorage[key]) : null;
+}
+BlazorLocalStorage.set = function (key, value) {
+    localStorage[key] = JSON.stringify(value);
+}
+BlazorLocalStorage.delete = function (key) {
+    delete localStorage[key];
+}

@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace JsMind.Blazor.Models
 {
     public class MindMapData
     {
-        public MindMapTreeNode RootNode { get; set; }
+        [JsonIgnore]
+        public MindMapTreeNode? RootNode { get; set; }
 
-        public ICollection<MindMapArrayNode> Nodes { get; set; }
+        [JsonIgnore]
+        public ICollection<MindMapArrayNode>? Nodes { get; set; }
 
-        public object Data => (object) RootNode ?? Nodes;
+        public object? Data => (object?) RootNode ?? Nodes;
 
         public string Format
         {

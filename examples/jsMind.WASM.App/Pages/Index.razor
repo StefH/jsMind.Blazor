@@ -1,14 +1,162 @@
 ﻿@page "/"
-@using JsMind.Blazor.Models
 
 <h1>jsMind Demo</h1>
 
-<MindMapContainer options="@options" style="width:800px; height:600px; border:solid 1px #ccc; background:#f4f4f4;" />
+SelectedNodeId = @_selectedNodeId
 
-@code {
-    MindMapOptions options = new MindMapOptions
+<div>
+    <label>TreeNodes</label>
+    <MindMapContainer @ref="_myTreeNodeContainer"
+                      Options="@_options"
+                      Data="@_treeData"
+                      OnSelectNode=@OnSelectTreeNode
+                      OnAddNode=@OnAddNode
+                      style="border:solid 1px blue; background:#f4f4f4;" />
+    <button class="btn btn-primary oi oi-plus" @onclick="AddTreeNode"></button>
+</div>
+<hr />
+<div>
+    <label>ArrayNodes with parentId</label>
+    <MindMapContainer @ref="_myArrayNodeContainer" Options="@_options" Data="@_arrayData1" style="border:solid 1px red; background:#f4f4f4;" />
+    <button class="btn btn-primary oi oi-plus" @onclick="AddArrayNode"></button>
+</div>
+<hr />
+<div>
+    <label>ArrayNodes with Parent</label>
+    <MindMapContainer options="@_options" data="@_arrayData2" style="border:solid 1px green; background:#f4f4f4;" />
+</div>
+
+@code
+{
+    private MindMapContainer _myTreeNodeContainer;
+    private MindMapContainer _myArrayNodeContainer;
+    private string _selectedNodeId = "";
+
+    readonly MindMapOptions _options = new MindMapOptions
     {
-
+        Editable = true
     };
 
+    readonly MindMapData _treeData = new MindMapData
+    {
+        RootNode = new MindMapTreeNode
+        {
+            Id = "root",
+            Topic = "-Root-",
+            Children = new List<MindMapTreeNode>
+{
+                new MindMapTreeNode
+                {
+                    Id = "sub1",
+                    Topic = "sub1-right"
+                },
+                new MindMapTreeNode
+                {
+                    Id = "sub2",
+                    Topic = "sub2-left",
+                    Direction = MindMapNodeDirection.Left
+                }
+            }
+        }
+    };
+
+    readonly MindMapData _arrayData1 = new MindMapData
+    {
+        Nodes = new List<MindMapArrayNode>
+{
+            new MindMapArrayNode
+            {
+                IsRoot = true,
+                Id = "root",
+                Topic = "-Root-"
+            },
+            new MindMapArrayNode
+            {
+                Id = "sub1",
+                Topic = "sub1-right",
+                ParentId = "root"
+            },
+            new MindMapArrayNode
+            {
+                Id = "sub2",
+                Topic = "sub2-left",
+                ParentId = "root",
+                Direction = MindMapNodeDirection.Left
+            }
+        }
+    };
+
+    readonly MindMapData _arrayData2 = new MindMapData
+    {
+        Nodes = new List<MindMapArrayNode>()
+    };
+
+    protected override Task OnInitializedAsync()
+    {
+        var root = new MindMapArrayNode
+        {
+            IsRoot = true,
+            Id = "root",
+            Topic = "-Root-"
+        };
+        _arrayData2.Nodes.Add(root);
+
+        var sub1 = new MindMapArrayNode
+        {
+            Id = "sub1",
+            Topic = "sub1-right",
+            Parent = root
+        };
+
+        var sub2 = new MindMapArrayNode
+        {
+            Id = "sub2",
+            Topic = "sub2-left",
+            Parent = root,
+            Direction = MindMapNodeDirection.Left
+        };
+        _arrayData2.Nodes.Add(sub1);
+        _arrayData2.Nodes.Add(sub2);
+
+        return base.OnInitializedAsync();
+    }
+
+    public void OnSelectTreeNode(MindMapEventArgs args)
+    {
+        var treeNode = (MindMapTreeNode)args.Node;
+        _selectedNodeId = treeNode.GetType().Name + " - " + treeNode.Id;
+
+        StateHasChanged();
+    }
+
+    public void OnAddNode(MindMapAddNodeEventArgs args)
+    {
+        StateHasChanged();
+    }
+
+    public async Task AddTreeNode()
+    {
+        var newTreeNode = new MindMapTreeNode
+        {
+            Id = "newTreeId",
+            Topic = "new Tree node",
+            //Parent = _treeData.RootNode,
+            Data = new Dictionary<string, string> { { "background-color", "lightblue" } }
+        };
+
+        await _myTreeNodeContainer.AddNode(_treeData.RootNode, newTreeNode);
+    }
+
+    public async Task AddArrayNode()
+    {
+        //var newTreeNode = new MindMapArrayNode
+        //{
+        //    Id = "newArrayId",
+        //    Topic = "new Array node",
+        //    Parent = _treeData.RootNode,
+        //    Data = new Dictionary<string, string> { { "background-color", "darkred" } }
+        //};
+
+        //await _myArrayNodeContainer.AddNode(newTreeNode);
+    }
 }

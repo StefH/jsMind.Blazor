@@ -12,7 +12,7 @@ namespace JsMind.Blazor.Components
     /// <summary>
     /// Shows a MindMap
     /// </summary>
-    public partial class MindMapContainer : ComponentBase
+    public partial class MindMapContainer : ComponentBase, IDisposable
     {
         private readonly string _containerId = "jsMind_container_" + Guid.NewGuid();
 
@@ -23,27 +23,19 @@ namespace JsMind.Blazor.Components
 
         [Parameter]
         public EventCallback<MindMapEventArgs> OnSelectNode { get; set; }
-        
+
+        [Parameter]
+        public EventCallback<MindMapAddNodeEventArgs> OnAddNode { get; set; }
+
         [Parameter]
         public MindMapOptions Options { get; set; }
 
         [Parameter]
         public MindMapData Data { get; set; }
 
-        /// <summary>
-        /// Gets or sets a collection of additional attributes that will be applied to the created <c>label</c> element.
-        /// </summary>
         [Parameter(CaptureUnmatchedValues = true)]
         public IReadOnlyDictionary<string, object> AdditionalAttributes { get; set; }
 
-        protected override Task OnInitializedAsync()
-        {
-            _dotNetObjectReference = DotNetObjectReference.Create(this);
-
-            return base.OnInitializedAsync();
-        }
-
-        /// <inheritdoc />
         protected override void BuildRenderTree(RenderTreeBuilder builder)
         {
             base.BuildRenderTree(builder);
@@ -58,8 +50,35 @@ namespace JsMind.Blazor.Components
         {
             if (firstRender)
             {
+                _dotNetObjectReference = DotNetObjectReference.Create(this);
+
                 await Runtime.InvokeVoidAsync("MindMap.show", _dotNetObjectReference, _containerId, Options, Data);
             }
+        }
+
+        public async Task AddNode(MindMapTreeNode parent, MindMapTreeNode node)
+        {
+            await Runtime.InvokeVoidAsync("MindMap.addNode", _containerId, parent.Id, node.Id, node.Topic, node.Data);
+
+            parent.Children.Add(node);
+            node.Parent = parent;
+        }
+
+        public void Dispose()
+        {
+            try
+            {
+                Runtime.InvokeVoidAsync("MindMap.dispose", _containerId);
+            }
+            catch
+            {
+                // just continue
+            }
+
+            GC.SuppressFinalize(this);
+
+            // Now dispose our object reference so our component can be garbage collected
+            _dotNetObjectReference?.Dispose();
         }
     }
 }

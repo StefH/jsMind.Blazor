@@ -76,7 +76,7 @@ namespace JsMind.Blazor.Validation
         [ContractAnnotation("value:null => halt")]
         public static string NotNullOrEmpty(string value, [InvokerParameterName] [NotNull] string parameterName)
         {
-            Exception e = null;
+            Exception? e = null;
             if (ReferenceEquals(value, null))
             {
                 e = new ArgumentNullException(parameterName);

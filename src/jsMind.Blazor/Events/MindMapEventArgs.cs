@@ -1,9 +1,10 @@
 ﻿using System;
+using JsMind.Blazor.Models;
 
 namespace JsMind.Blazor.Events
 {
     public class MindMapEventArgs : EventArgs
     {
-        public string NodeId { get; set; }
+        public MindMapBaseNode? Node { get; set; }
     }
 }

@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.Json;
 using System.Threading.Tasks;
+using JsMind.Blazor.Events;
+using JsMind.Blazor.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.JSInterop;
@@ -11,7 +12,7 @@ namespace JsMind.Blazor.Components
     /// <summary>
     /// Shows a MindMap
     /// </summary>
-    public class MindMapContainer : ComponentBase
+    public partial class MindMapContainer : ComponentBase
     {
         private readonly string _containerId = "jsMind_container_" + Guid.NewGuid();
 
@@ -20,6 +21,9 @@ namespace JsMind.Blazor.Components
         [Inject]
         private IJSRuntime Runtime { get; set; }
 
+        [Parameter]
+        public EventCallback<MindMapEventArgs> OnSelectNode { get; set; }
+        
         [Parameter]
         public MindMapOptions Options { get; set; }
 

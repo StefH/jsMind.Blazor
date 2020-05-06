@@ -1,4 +1,4 @@
-﻿namespace JsMind.Blazor.Components
+﻿namespace JsMind.Blazor.Models
 {
     public class MindMapOptions
     {

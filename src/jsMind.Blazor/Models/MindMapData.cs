@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using JsMind.Blazor.Models;
 
-namespace JsMind.Blazor.Components
+namespace JsMind.Blazor.Models
 {
     public class MindMapData
     {
         public MindMapTreeNode RootNode { get; set; }
 
-        public ICollection<MindMapTreeNode> Nodes { get; set; }
+        public ICollection<MindMapArrayNode> Nodes { get; set; }
 
         public object Data => (object) RootNode ?? Nodes;
 

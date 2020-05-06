@@ -24,7 +24,30 @@ MindMap.show = function (dotnetReference, containerId, mindMapOptions, mindMapDa
         theme: mindMapOptions.theme
     }
 
-    let mindmap = window.jsMind.show(options, mind);
+    const mindmap = window.jsMind.show(options, mind);
+
+    const eventHandler = async function (type, data) {
+        // show: 1, resize: 2, edit: 3, select: 4
+        switch (type) {
+            case 1:
+                await dotnetReference.invokeMethodAsync('OnShowCallback', data);
+                break;
+
+            case 2:
+                await dotnetReference.invokeMethodAsync('OnResizeCallback', data);
+                break;
+
+            case 3:
+                await dotnetReference.invokeMethodAsync('OnEditCallback', data);
+                break;
+
+            case 4:
+                await dotnetReference.invokeMethodAsync('OnSelectCallback', data);
+                break;
+        }
+
+    }
+    mindmap.add_event_listener(eventHandler);
 
     //mindmap.add_node("sub2", "sub23", "new node", { "background-color": "red" });
     //mindmap.set_node_color('sub21', 'green', '#ccc');

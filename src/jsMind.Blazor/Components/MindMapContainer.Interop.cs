@@ -1,56 +1,79 @@
-﻿using System.Collections.Generic;
-using System.Text.Json;
-using System.Threading.Tasks;
-using JsMind.Blazor.Events;
-using JsMind.Blazor.Events.Interop;
-using JsMind.Blazor.Models;
+﻿using System.Threading.Tasks;
 using Microsoft.JSInterop;
 
 namespace JsMind.Blazor.Components
 {
     public partial class MindMapContainer<T>
     {
-        [JSInvokable]
-        public async ValueTask OnShowCallback(InteropEventData evt)
+        private DotNetObjectReference<MindMapContainer<T>> _dotNetObjectReference;
+
+        private ValueTask Show()
         {
+            return Runtime.InvokeVoidAsync("MindMap.show", _dotNetObjectReference, ContainerId, Options, MindMapData);
         }
 
-        [JSInvokable]
-        public async ValueTask OnResizeCallback(InteropEventData evt)
+        public virtual ValueTask AddNode(T parent, T node)
         {
+            return Runtime.InvokeVoidAsync("MindMap.addNode", ContainerId, parent.Id, node.Id, node.Topic, node.Data);
         }
 
-        [JSInvokable]
-        public async ValueTask OnEditCallback(InteropEventData evt)
+        public ValueTask SelectNode(T node)
         {
-            switch (evt.Type)
-            {
-                case "add_nodeXXX":
-                    // this.invoke_event_handle(jm.event_type.edit, { evt: 'add_node', data: [parent_node.id, nodeid, topic, data], node: nodeid });
-                    await OnAddNode.InvokeAsync(new MindMapAddNodeEventArgs<T>
-                    {
-                        Node = FindNode(evt.NodeId),
-                        ParentId = evt.Data[0].GetString(),
-                        NodeId = evt.Data[1].GetString(),
-                        Topic = evt.Data[2].GetString(),
-                        Data = JsonSerializer.Deserialize<IDictionary<string, string>>(evt.Data[3].GetRawText())
-                    });
-                    break;
-            }
+            return Runtime.InvokeVoidAsync("MindMap.selectNode", ContainerId, node.Id);
         }
 
-        [JSInvokable]
-        public async ValueTask OnSelectCallback(InteropEventData evt)
+        public ValueTask ClearSelect()
         {
-            switch (evt.Type)
-            {
-                case "select_node":
-                    // this.invoke_event_handle(jm.event_type.select, { evt: 'select_node', data: [], node: node.id });
-                    await OnSelectNode.InvokeAsync(new MindMapEventArgs<T> { Node = FindNode(evt.NodeId) });
-                    break;
-            }
+            return Runtime.InvokeVoidAsync("MindMap.clearSelect", ContainerId);
         }
 
-        protected abstract T? FindNode(string id);
+        public ValueTask SetTheme(string theme)
+        {
+            return Runtime.InvokeVoidAsync("MindMap.setTheme", ContainerId, theme);
+        }
+
+        public ValueTask SetEditable(bool edit)
+        {
+            Options.Editable = edit;
+
+            return Runtime.InvokeVoidAsync(edit ? "MindMap.enableEdit" : "MindMap.disableEdit", ContainerId);
+        }
+
+        public async ValueTask<bool> IsEditable()
+        {
+            Options.Editable = await Runtime.InvokeAsync<bool>("MindMap.isEditable", ContainerId);
+
+            return Options.Editable;
+        }
+
+        public ValueTask ExpandNode(T node)
+        {
+            return Runtime.InvokeVoidAsync("MindMap.expandNode", ContainerId, node.Id);
+        }
+
+        public ValueTask CollapseNode(T node)
+        {
+            return Runtime.InvokeVoidAsync("MindMap.collapseNode", ContainerId, node.Id);
+        }
+
+        public ValueTask Expand()
+        {
+            return Runtime.InvokeVoidAsync("MindMap.expand", ContainerId);
+        }
+
+        public ValueTask ExpandToDepth()
+        {
+            return Runtime.InvokeVoidAsync("MindMap.expandToDepth", ContainerId);
+        }
+
+        public ValueTask Collapse()
+        {
+            return Runtime.InvokeVoidAsync("MindMap.collapse", ContainerId);
+        }
+
+        private ValueTask DisposeMindMap()
+        {
+            return Runtime.InvokeVoidAsync("MindMap.dispose", ContainerId);
+        }
     }
 }

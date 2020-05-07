@@ -7,12 +7,16 @@ SelectedNodeId = @_selectedNodeId
 <div>
     <label>TreeNodes</label>
     <MindMapTreeContainer @ref="_myTreeNodeContainer"
-                      Options="@_options"
-                      Data="@_treeData"
-                      OnSelectNode=@OnSelectTreeNode
-                      OnAddNode=@OnAddNode
-                      style="border:solid 1px blue; background:#f4f4f4;" />
+                          Options="@_options"
+                          Data="@_treeData"
+                          OnSelectNode=@OnSelectTreeNode
+                          OnAddNode=@OnAddNode
+                          OnShow="@OnShowTree"
+                          style="border:solid 1px blue; background:#f4f4f4;" />
     <button class="btn btn-primary oi oi-plus" @onclick="AddTreeNode"></button>
+    <button class="btn btn-primary oi oi-collapse-down" @onclick="CollapseTree"></button>
+    <button class="btn btn-primary oi oi-check" @onclick="SelectTreeNode"></button>
+    <button class="btn btn-primary oi oi-action-undo" @onclick="ClearSelect"></button>
 </div>
 <hr />
 <div>
@@ -34,7 +38,8 @@ SelectedNodeId = @_selectedNodeId
 
     readonly MindMapOptions _options = new MindMapOptions
     {
-        Editable = true
+        Editable = false,
+        Theme = MindMapThemes.Primary
     };
 
     readonly MindMapTreeData _treeData = new MindMapTreeData
@@ -44,11 +49,29 @@ SelectedNodeId = @_selectedNodeId
             Id = "root",
             Topic = "-Root-",
             Children = new List<MindMapTreeNode>
-{
+            {
                 new MindMapTreeNode
                 {
-                    Id = "sub1",
-                    Topic = "sub1-right"
+                    Id = "sub1.0",
+                    Topic = "sub1.0-right"
+                },
+                new MindMapTreeNode
+                {
+                    Id = "sub1.1",
+                    Topic = "sub1.1-right",
+                    Children = new List<MindMapTreeNode>
+                    {
+                        new MindMapTreeNode
+                        {
+                            Id = "sub1.1a",
+                            Topic = "sub1.1a-right"
+                        },
+                        new MindMapTreeNode
+                        {
+                            Id = "sub1.1b",
+                            Topic = "sub1.1b-right"
+                        },
+                    }
                 },
                 new MindMapTreeNode
                 {
@@ -63,27 +86,27 @@ SelectedNodeId = @_selectedNodeId
     readonly MindMapArrayData _arrayData1 = new MindMapArrayData
     {
         Nodes = new List<MindMapArrayNode>
-    {
-                new MindMapArrayNode
-                {
-                    IsRoot = true,
-                    Id = "root",
-                    Topic = "-Root-"
-                },
-                new MindMapArrayNode
-                {
-                    Id = "sub1",
-                    Topic = "sub1-right",
-                    ParentId = "root"
-                },
-                new MindMapArrayNode
-                {
-                    Id = "sub2",
-                    Topic = "sub2-left",
-                    ParentId = "root",
-                    Direction = MindMapNodeDirection.Left
-                }
+        {
+            new MindMapArrayNode
+            {
+                IsRoot = true,
+                Id = "root",
+                Topic = "-Root-"
+            },
+            new MindMapArrayNode
+            {
+                Id = "sub1",
+                Topic = "sub1-right",
+                ParentId = "root"
+            },
+            new MindMapArrayNode
+            {
+                Id = "sub2",
+                Topic = "sub2-left",
+                ParentId = "root",
+                Direction = MindMapNodeDirection.Left
             }
+        }
     };
 
     readonly MindMapArrayData _arrayData2 = new MindMapArrayData
@@ -121,7 +144,12 @@ SelectedNodeId = @_selectedNodeId
         return base.OnInitializedAsync();
     }
 
-    public void OnSelectTreeNode(MindMapEventArgs<MindMapTreeNode> args)
+    async Task OnShowTree(EventArgs args)
+    {
+        await _myTreeNodeContainer.Expand();
+    }
+
+    void OnSelectTreeNode(MindMapEventArgs<MindMapTreeNode> args)
     {
         var treeNode = args.Node;
         _selectedNodeId = treeNode.GetType().Name + " - " + treeNode.Id;
@@ -129,12 +157,12 @@ SelectedNodeId = @_selectedNodeId
         StateHasChanged();
     }
 
-    public void OnAddNode(MindMapAddNodeEventArgs<MindMapTreeNode> args)
+    void OnAddNode(MindMapAddNodeEventArgs<MindMapTreeNode> args)
     {
         StateHasChanged();
     }
 
-    public async Task AddTreeNode()
+    async Task AddTreeNode()
     {
         var newTreeNode = new MindMapTreeNode
         {
@@ -144,10 +172,17 @@ SelectedNodeId = @_selectedNodeId
             Data = new Dictionary<string, string> { { "background-color", "lightblue" } }
         };
 
+        await _myTreeNodeContainer.SetEditable(true);
         await _myTreeNodeContainer.AddNode(_treeData.RootNode, newTreeNode);
+        await _myTreeNodeContainer.SetEditable(false);
     }
 
-    public async Task AddArrayNode()
+    async Task SelectTreeNode()
+    {
+        await _myTreeNodeContainer.SelectNode(_treeData.RootNode);
+    }
+
+    async Task AddArrayNode()
     {
         var newArrayNode = new MindMapArrayNode
         {
@@ -157,5 +192,15 @@ SelectedNodeId = @_selectedNodeId
         };
 
         await _myArrayNodeContainer.AddNode(_arrayData1.Nodes.First(), newArrayNode);
+    }
+
+    async Task ClearSelect()
+    {
+        await _myTreeNodeContainer.ClearSelect();
+    }
+
+    async Task CollapseTree()
+    {
+        await _myTreeNodeContainer.Collapse();
     }
 }

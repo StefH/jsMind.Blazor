@@ -12,16 +12,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>jsMind.Server.App</title>
     <base href="~/" />
-    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
-    <link href="css/site.css" rel="stylesheet" />
-
+    <link type="text/css" rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="css/site.css" />
     <link type="text/css" rel="stylesheet" href="css/jsmind.css" />
-    <script type="text/javascript" src="js/jsmind.js"></script>
-    <script type="text/javascript" src="js/jsmind.draggable.js"></script>
+
+    <style type="text/css">
+        #jsmind_container {
+            width: 800px;
+            height: 500px;
+            border: solid 1px #ccc;
+            /*background:#f4f4f4;*/
+            background: #f4f4f4;
+        }
+    </style>
 
     <script src="_content/jsMind.Blazor/JsInterop-jsMind.js"></script>
+    <script type="text/javascript" src="js/jsmind.js"></script>
+    <script type="text/javascript" src="js/jsmind.draggable.js"></script>
 </head>
 <body>
+
     <app>
         <!-- https://blazor-university.com/javascript-interop/calling-javascript-from-dotnet/updating-the-document-title/#caveat -->
         <component type="typeof(App)" render-mode="Server" />
@@ -38,6 +48,6 @@
         <a class="dismiss">🗙</a>
     </div>
 
-    <script src="_framework/blazor.server.js"></script>
+    <script type="text/javascript" src="_framework/blazor.server.js"></script>
 </body>
 </html>

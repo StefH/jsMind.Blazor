@@ -12,7 +12,7 @@ namespace JsMind.Blazor.Components
 
         protected override object MindMapData => Data;
 
-        public override async Task AddNode(MindMapArrayNode parent, MindMapArrayNode node)
+        public override async ValueTask AddNode(MindMapArrayNode parent, MindMapArrayNode node)
         {
             await base.AddNode(parent, node);
 

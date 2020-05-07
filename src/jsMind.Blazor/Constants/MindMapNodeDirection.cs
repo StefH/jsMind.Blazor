@@ -1,4 +1,4 @@
-﻿namespace JsMind.Blazor.Models
+﻿namespace JsMind.Blazor.Constants
 {
     public static class MindMapNodeDirection
     {

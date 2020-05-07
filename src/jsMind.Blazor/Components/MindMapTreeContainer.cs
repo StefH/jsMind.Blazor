@@ -11,7 +11,7 @@ namespace JsMind.Blazor.Components
 
         protected override object MindMapData => Data;
 
-        public override async Task AddNode(MindMapTreeNode parent, MindMapTreeNode node)
+        public override async ValueTask AddNode(MindMapTreeNode parent, MindMapTreeNode node)
         {
             await base.AddNode(parent, node);
 
@@ -24,7 +24,7 @@ namespace JsMind.Blazor.Components
             return FindTreeNode(Data.RootNode, id);
         }
 
-        protected MindMapTreeNode? FindTreeNode(MindMapTreeNode node, string id)
+        private MindMapTreeNode? FindTreeNode(MindMapTreeNode node, string id)
         {
             if (node.Id == id)
             {

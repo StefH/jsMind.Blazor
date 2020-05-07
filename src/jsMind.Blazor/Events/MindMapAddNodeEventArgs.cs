@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using JsMind.Blazor.Models;
 
 namespace JsMind.Blazor.Events
 {
-    public class MindMapAddNodeEventArgs: MindMapEventArgs
+    public class MindMapAddNodeEventArgs<T> : MindMapEventArgs<T> where T : MindMapBaseNode
     {
         public string ParentId { get; set; }
 

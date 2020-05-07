@@ -12,26 +12,24 @@ namespace JsMind.Blazor.Components
     /// <summary>
     /// Shows a MindMap
     /// </summary>
-    public partial class MindMapContainer : ComponentBase, IDisposable
+    public abstract partial class MindMapContainer<T> : ComponentBase, IDisposable
+        where T : MindMapBaseNode
     {
-        private readonly string _containerId = "jsMind_container_" + Guid.NewGuid();
+        protected readonly string ContainerId = "jsMind_container_" + Guid.NewGuid();
 
-        private DotNetObjectReference<MindMapContainer> _dotNetObjectReference;
+        private DotNetObjectReference<MindMapContainer<T>> _dotNetObjectReference;
 
         [Inject]
         private IJSRuntime Runtime { get; set; }
 
         [Parameter]
-        public EventCallback<MindMapEventArgs> OnSelectNode { get; set; }
+        public EventCallback<MindMapEventArgs<T>> OnSelectNode { get; set; }
 
         [Parameter]
-        public EventCallback<MindMapAddNodeEventArgs> OnAddNode { get; set; }
+        public EventCallback<MindMapAddNodeEventArgs<T>> OnAddNode { get; set; }
 
         [Parameter]
         public MindMapOptions Options { get; set; }
-
-        [Parameter]
-        public MindMapData Data { get; set; }
 
         [Parameter(CaptureUnmatchedValues = true)]
         public IReadOnlyDictionary<string, object> AdditionalAttributes { get; set; }
@@ -41,7 +39,7 @@ namespace JsMind.Blazor.Components
             base.BuildRenderTree(builder);
 
             builder.OpenElement(0, "div");
-            builder.AddAttribute(1, "id", _containerId);
+            builder.AddAttribute(1, "id", ContainerId);
             builder.AddMultipleAttributes(2, AdditionalAttributes);
             builder.CloseElement();
         }
@@ -52,23 +50,22 @@ namespace JsMind.Blazor.Components
             {
                 _dotNetObjectReference = DotNetObjectReference.Create(this);
 
-                await Runtime.InvokeVoidAsync("MindMap.show", _dotNetObjectReference, _containerId, Options, Data);
+                await Runtime.InvokeVoidAsync("MindMap.show", _dotNetObjectReference, ContainerId, Options, MindMapData);
             }
         }
 
-        public async Task AddNode(MindMapTreeNode parent, MindMapTreeNode node)
-        {
-            await Runtime.InvokeVoidAsync("MindMap.addNode", _containerId, parent.Id, node.Id, node.Topic, node.Data);
+        protected abstract object MindMapData { get; }
 
-            parent.Children.Add(node);
-            node.Parent = parent;
+        public virtual async Task AddNode(T parent, T node)
+        {
+            await Runtime.InvokeVoidAsync("MindMap.addNode", ContainerId, parent.Id, node.Id, node.Topic, node.Data);
         }
 
         public void Dispose()
         {
             try
             {
-                Runtime.InvokeVoidAsync("MindMap.dispose", _containerId);
+                Runtime.InvokeVoidAsync("MindMap.dispose", ContainerId);
             }
             catch
             {

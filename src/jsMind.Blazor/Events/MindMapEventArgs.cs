@@ -3,8 +3,8 @@ using JsMind.Blazor.Models;
 
 namespace JsMind.Blazor.Events
 {
-    public class MindMapEventArgs : EventArgs
+    public class MindMapEventArgs<T> : EventArgs where T : MindMapBaseNode
     {
-        public MindMapBaseNode? Node { get; set; }
+        public T? Node { get; set; }
     }
 }

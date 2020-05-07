@@ -8,7 +8,7 @@ using Microsoft.JSInterop;
 
 namespace JsMind.Blazor.Components
 {
-    public partial class MindMapContainer
+    public partial class MindMapContainer<T>
     {
         [JSInvokable]
         public async ValueTask OnShowCallback(InteropEventData evt)
@@ -27,7 +27,7 @@ namespace JsMind.Blazor.Components
             {
                 case "add_nodeXXX":
                     // this.invoke_event_handle(jm.event_type.edit, { evt: 'add_node', data: [parent_node.id, nodeid, topic, data], node: nodeid });
-                    await OnAddNode.InvokeAsync(new MindMapAddNodeEventArgs
+                    await OnAddNode.InvokeAsync(new MindMapAddNodeEventArgs<T>
                     {
                         Node = FindNode(evt.NodeId),
                         ParentId = evt.Data[0].GetString(),
@@ -46,38 +46,11 @@ namespace JsMind.Blazor.Components
             {
                 case "select_node":
                     // this.invoke_event_handle(jm.event_type.select, { evt: 'select_node', data: [], node: node.id });
-                    await OnSelectNode.InvokeAsync(new MindMapEventArgs { Node = FindNode(evt.NodeId) });
+                    await OnSelectNode.InvokeAsync(new MindMapEventArgs<T> { Node = FindNode(evt.NodeId) });
                     break;
             }
         }
 
-        private MindMapBaseNode? FindNode(string id)
-        {
-            if (Data.RootNode is { })
-            {
-                return FindTreeNode(Data.RootNode, id);
-            }
-
-            return null;
-        }
-
-        private MindMapBaseNode? FindTreeNode(MindMapTreeNode node, string id)
-        {
-            if (node.Id == id)
-            {
-                return node;
-            }
-
-            foreach (var childNode in node.Children)
-            {
-                var match = FindTreeNode(childNode, id);
-                if (match is { })
-                {
-                    return match;
-                }
-            }
-
-            return null;
-        }
+        protected abstract T? FindNode(string id);
     }
 }

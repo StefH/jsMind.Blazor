@@ -2,7 +2,7 @@
 A Blazor JSInterop wrapper for [jsMind](https://github.com/hizzgdev/jsmind)
 
 ### Live Demo
-https://stefh.github.io/jsMind.Blazor (TODO)
+https://stefh.github.io/jsMind.Blazor
 
 ### Usage
 

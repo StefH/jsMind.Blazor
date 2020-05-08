@@ -11,6 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Directory.Build.props = Directory.Build.props
 		GitHubReleaseNotes.txt = GitHubReleaseNotes.txt
 		LICENSE = LICENSE
+		publish-docs.cmd = publish-docs.cmd
 		README.md = README.md
 		ReleaseNotes.md = ReleaseNotes.md
 	EndProjectSection
@@ -21,7 +22,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "jsMind.Blazor", "src\jsMind
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "jsMind.WASM.App", "examples\jsMind.WASM.App\jsMind.WASM.App.csproj", "{CDFCECB1-1960-470B-841C-1E1BD58DBA4E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jsMind.Server.App", "examples\jsMind.Server.App\jsMind.Server.App.csproj", "{92B1FB32-A017-4BF3-AE99-D8C150F01207}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "jsMind.Server.App", "examples\jsMind.Server.App\jsMind.Server.App.csproj", "{92B1FB32-A017-4BF3-AE99-D8C150F01207}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

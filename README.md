@@ -2,7 +2,7 @@
 A Blazor JSInterop wrapper for [jsMind](https://github.com/hizzgdev/jsmind)
 
 ### Live Demo
-https://stefh.github.io/Howler.Blazor
+https://stefh.github.io/jsMind.Blazor (TODO)
 
 ### Usage
 
@@ -26,12 +26,7 @@ PM> Install-Package jsMind.Blazor
 
 #### Add the required imports to the _Imports.razor
 ``` diff
-@using System.Net.Http
-@using Microsoft.AspNetCore.Authorization
-@using Microsoft.AspNetCore.Components.Authorization
-@using Microsoft.AspNetCore.Components.Forms
-@using Microsoft.AspNetCore.Components.Routing
-@using Microsoft.AspNetCore.Components.Web
+. . .
 @using Microsoft.JSInterop
 + @using JsMind.Blazor.Components
 + @using JsMind.Blazor.Models

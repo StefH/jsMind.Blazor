@@ -73,7 +73,7 @@ namespace JsMind.Blazor.Components
 
         private ValueTask DisposeMindMap()
         {
-            return Runtime.InvokeVoidAsync("MindMap.dispose", ContainerId);
+            return Runtime.InvokeVoidAsync("MindMap.destroy", ContainerId);
         }
     }
 }

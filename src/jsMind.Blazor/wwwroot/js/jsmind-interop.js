@@ -54,7 +54,7 @@ MindMap.show = function (dotnetReference, containerId, mindMapOptions, mindMapDa
     instances[containerId].add_event_listener(eventHandler);
 };
 
-MindMap.dispose = function (containerId) {
+MindMap.destroy = function (containerId) {
     instances[containerId] = null;
 }
 

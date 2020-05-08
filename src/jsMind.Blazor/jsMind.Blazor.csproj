@@ -30,8 +30,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <!-- .js files will be referenced via <script> tags -->
     <EmbeddedResource Include="content\**\*.js" LogicalName="jsmind:js:%(RecursiveDir)%(Filename)%(Extension)" />
+    <EmbeddedResource Include="content\**\*.css" LogicalName="jsmind:js:%(RecursiveDir)%(Filename)%(Extension)" />
   </ItemGroup>
 
   <ItemGroup>

@@ -9,8 +9,6 @@ SelectedNodeId = @_selectedNodeId
     <MindMapTreeContainer @ref="_myTreeNodeContainer"
                           Options="@_options"
                           Data="@_treeData"
-                          OnSelectNode=@OnSelectTreeNode
-                          OnAddNode=@OnAddNode
                           OnShow="@OnShowTree"
                           style="border:solid 1px blue; background:#f4f4f4;" />
     <button class="btn btn-primary oi oi-plus" @onclick="AddTreeNode"></button>
@@ -191,7 +189,9 @@ SelectedNodeId = @_selectedNodeId
             Data = new Dictionary<string, string> { { "background-color", "darkred" } }
         };
 
+        await _myArrayNodeContainer.SetEditable(true);
         await _myArrayNodeContainer.AddNode(_arrayData1.Nodes.First(), newArrayNode);
+        await _myArrayNodeContainer.SetEditable(false);
     }
 
     async Task ClearSelect()

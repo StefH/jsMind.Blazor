@@ -13,7 +13,6 @@ namespace JsMind.Blazor.Components
         where T : MindMapBaseNode
     {
         private readonly string ContainerId = "jsMind_container_" + Guid.NewGuid();
-        //private readonly string ContainerId = "jsmind_container";
 
         [Inject]
         private IJSRuntime Runtime { get; set; }

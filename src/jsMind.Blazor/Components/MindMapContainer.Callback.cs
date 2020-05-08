@@ -34,6 +34,7 @@ namespace JsMind.Blazor.Components
         [JSInvokable]
         public async ValueTask OnResizeCallback(InteropEventData evt)
         {
+            // todo
         }
 
         [JSInvokable]
@@ -41,7 +42,7 @@ namespace JsMind.Blazor.Components
         {
             switch (evt.Type)
             {
-                case "add_nodeTOO":
+                case "add_nodeTODO":
                     // this.invoke_event_handle(jm.event_type.edit, { evt: 'add_node', data: [parent_node.id, nodeid, topic, data], node: nodeid });
                     await OnAddNode.InvokeAsync(new MindMapAddNodeEventArgs<T>
                     {

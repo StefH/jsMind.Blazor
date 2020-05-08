@@ -12,7 +12,7 @@ namespace JsMind.Blazor.Components
     public abstract partial class MindMapContainer<T> : ComponentBase, IDisposable
         where T : MindMapBaseNode
     {
-        private readonly string ContainerId = "jsMind_container_" + Guid.NewGuid();
+        private readonly string _containerId = "jsMind_container_" + Guid.NewGuid();
 
         [Inject]
         private IJSRuntime Runtime { get; set; }
@@ -37,7 +37,7 @@ namespace JsMind.Blazor.Components
             base.BuildRenderTree(builder);
 
             builder.OpenElement(0, "div");
-            builder.AddAttribute(1, "id", ContainerId);
+            builder.AddAttribute(1, "id", _containerId);
             builder.AddMultipleAttributes(2, AdditionalAttributes);
             builder.CloseElement();
         }

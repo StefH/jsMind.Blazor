@@ -4,6 +4,9 @@ A Blazor JSInterop wrapper for [jsMind](https://github.com/hizzgdev/jsmind)
 ### Live Demo
 https://stefh.github.io/jsMind.Blazor
 
+### Supported Functionality
+See [Wiki : Supported-Functionality](https://github.com/StefH/jsMind.Blazor/wiki/Supported-Functionality)
+
 ### Usage
 
 #### Install the NuGet

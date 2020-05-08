@@ -9,6 +9,7 @@ SelectedNodeId = @_selectedNodeId
     <MindMapTreeContainer @ref="_myTreeNodeContainer"
                           Options="@_options"
                           Data="@_treeData"
+                          OnSelectNode="@OnSelectTreeNode"
                           OnShow="@OnShowTree"
                           style="border:solid 1px blue; background:#f4f4f4;" />
     <button class="btn btn-primary oi oi-plus" @onclick="AddTreeNode"></button>

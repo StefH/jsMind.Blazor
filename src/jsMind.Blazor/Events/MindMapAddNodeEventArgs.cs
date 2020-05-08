@@ -7,8 +7,6 @@ namespace JsMind.Blazor.Events
     {
         public T? Parent { get; set; }
 
-        public T? Node { get; set; }
-
         public IDictionary<string, string> Data { get; set; }
     }
 }

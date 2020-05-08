@@ -9,71 +9,71 @@ namespace JsMind.Blazor.Components
 
         private ValueTask Show()
         {
-            return Runtime.InvokeVoidAsync("MindMap.show", _dotNetObjectReference, ContainerId, Options, MindMapData);
+            return Runtime.InvokeVoidAsync("MindMap.show", _dotNetObjectReference, _containerId, Options, MindMapData);
         }
 
         public virtual ValueTask AddNode(T parent, T node)
         {
-            return Runtime.InvokeVoidAsync("MindMap.addNode", ContainerId, parent.Id, node.Id, node.Topic, node.Data);
+            return Runtime.InvokeVoidAsync("MindMap.addNode", _containerId, parent.Id, node.Id, node.Topic, node.Data);
         }
 
         public ValueTask SelectNode(T node)
         {
-            return Runtime.InvokeVoidAsync("MindMap.selectNode", ContainerId, node.Id);
+            return Runtime.InvokeVoidAsync("MindMap.selectNode", _containerId, node.Id);
         }
 
         public ValueTask ClearSelect()
         {
-            return Runtime.InvokeVoidAsync("MindMap.clearSelect", ContainerId);
+            return Runtime.InvokeVoidAsync("MindMap.clearSelect", _containerId);
         }
 
         public ValueTask SetTheme(string theme)
         {
-            return Runtime.InvokeVoidAsync("MindMap.setTheme", ContainerId, theme);
+            return Runtime.InvokeVoidAsync("MindMap.setTheme", _containerId, theme);
         }
 
         public ValueTask SetEditable(bool edit)
         {
             Options.Editable = edit;
 
-            return Runtime.InvokeVoidAsync(edit ? "MindMap.enableEdit" : "MindMap.disableEdit", ContainerId);
+            return Runtime.InvokeVoidAsync(edit ? "MindMap.enableEdit" : "MindMap.disableEdit", _containerId);
         }
 
         public async ValueTask<bool> IsEditable()
         {
-            Options.Editable = await Runtime.InvokeAsync<bool>("MindMap.isEditable", ContainerId);
+            Options.Editable = await Runtime.InvokeAsync<bool>("MindMap.isEditable", _containerId);
 
             return Options.Editable;
         }
 
         public ValueTask ExpandNode(T node)
         {
-            return Runtime.InvokeVoidAsync("MindMap.expandNode", ContainerId, node.Id);
+            return Runtime.InvokeVoidAsync("MindMap.expandNode", _containerId, node.Id);
         }
 
         public ValueTask CollapseNode(T node)
         {
-            return Runtime.InvokeVoidAsync("MindMap.collapseNode", ContainerId, node.Id);
+            return Runtime.InvokeVoidAsync("MindMap.collapseNode", _containerId, node.Id);
         }
 
         public ValueTask Expand()
         {
-            return Runtime.InvokeVoidAsync("MindMap.expand", ContainerId);
+            return Runtime.InvokeVoidAsync("MindMap.expand", _containerId);
         }
 
-        public ValueTask ExpandToDepth()
+        public ValueTask ExpandToDepth(int depth)
         {
-            return Runtime.InvokeVoidAsync("MindMap.expandToDepth", ContainerId);
+            return Runtime.InvokeVoidAsync("MindMap.expandToDepth", _containerId, depth);
         }
 
         public ValueTask Collapse()
         {
-            return Runtime.InvokeVoidAsync("MindMap.collapse", ContainerId);
+            return Runtime.InvokeVoidAsync("MindMap.collapse", _containerId);
         }
 
         private ValueTask DisposeMindMap()
         {
-            return Runtime.InvokeVoidAsync("MindMap.destroy", ContainerId);
+            return Runtime.InvokeVoidAsync("MindMap.destroy", _containerId);
         }
     }
 }

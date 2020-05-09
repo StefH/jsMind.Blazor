@@ -1,4 +1,4 @@
-﻿var MindMap = MindMap || {};
+var MindMap = MindMap || {};
 var BlazorLocalStorage = BlazorLocalStorage || {};
 
 const instances = {};

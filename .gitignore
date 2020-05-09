@@ -348,4 +348,8 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+
+
+# Custom
 /docs-temp
+src/jsMind.Blazor/wwwroot/*.*

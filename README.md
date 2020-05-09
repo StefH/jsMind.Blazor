@@ -1,5 +1,9 @@
 # jsMind.Blazor
-A Blazor JSInterop wrapper for [jsMind](https://github.com/hizzgdev/jsmind)
+A Blazor JSInterop wrapper for [jsMind](https://github.com/hizzgdev/jsmind).
+
+[![NuGet](https://buildstats.info/nuget/jsMind.Blazor)](https://www.nuget.org/packages/jsMind.Blazor)
+
+![Example](https://raw.githubusercontent.com/StefH/jsMind.Blazor/master/resources/example.png "example")
 
 ### Live Demo
 https://stefh.github.io/jsMind.Blazor
@@ -19,11 +23,10 @@ PM> Install-Package jsMind.Blazor
 ``` diff
 <head>
 . . .
-+    <script type="text/javascript" src="_content/jsMind.Blazor/js/jsmind.js"></script>
-+    <script type="text/javascript" src="_content/jsMind.Blazor/js/jsmind.draggable.js"></script>
-+    <script type="text/javascript" src="_content/jsMind.Blazor/js/jsmind-interop.js"></script>
++    <script type="text/javascript" src="_content/jsMind.Blazor/jsmind.min.js"></script>
++    <script type="text/javascript" src="_content/jsMind.Blazor/jsmind-interop.min.js"></script>
 
-+    <link type="text/css" rel="stylesheet" href="_content/jsMind.Blazor/css/jsmind.css" />
++    <link type="text/css" rel="stylesheet" href="_content/jsMind.Blazor/jsmind.min.css" />
 </head>
 ```
 

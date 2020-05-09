@@ -12,4 +12,4 @@ rem delete all sub-folders
 for /d %%x in (%docs_folder%\*) do @rd /s /q "%%x"
 
 rem copy / move all from temp-docs into docs folder
-robocopy %www_folder% %docs_folder% /E /MOV
+robocopy %www_folder% %docs_folder% /E /MOVE

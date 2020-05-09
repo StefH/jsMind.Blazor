@@ -1,0 +1,21 @@
+[
+  {
+    "outputFileName": "wwwroot/jsmind.css",
+    "inputFiles": [
+      "Styles/*.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/jsmind.js",
+    "inputFiles": [
+      "Scripts/jsmind.js",
+      "Scripts/jsmind.draggable.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/jsmind-interop.js",
+    "inputFiles": [
+      "Scripts/jsmind-interop.js"
+    ]
+  }
+]

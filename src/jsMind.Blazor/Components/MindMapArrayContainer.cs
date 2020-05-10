@@ -14,16 +14,27 @@ namespace JsMind.Blazor.Components
 
         public override async ValueTask AddNode(MindMapArrayNode parent, MindMapArrayNode node)
         {
-            await base.AddNode(parent, node);
+            await AddNodeInternal(parent, node);
 
             node.Parent = parent;
 
             Data.Nodes.Add(node);
         }
 
+        public override async ValueTask RemoveNode(MindMapArrayNode node)
+        {
+            await RemoveNodeInternal(node);
+
+            var existingNode = FindNode(node.Id);
+            if (existingNode is { })
+            {
+                Data.Nodes.Remove(existingNode);
+            }
+        }
+
         protected override MindMapArrayNode? FindNode(string id)
         {
-            return Data.Nodes.FirstOrDefault(node => node.Id == id);
+            return Data.Nodes.First(node => node.Id == id);
         }
     }
 }

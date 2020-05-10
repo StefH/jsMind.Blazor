@@ -12,9 +12,18 @@ namespace JsMind.Blazor.Components
             return Runtime.InvokeVoidAsync("MindMap.show", _dotNetObjectReference, _containerId, Options, MindMapData);
         }
 
-        public virtual ValueTask AddNode(T parent, T node)
+        public abstract ValueTask AddNode(T parent, T node);
+
+        protected ValueTask AddNodeInternal(T parent, T node)
         {
             return Runtime.InvokeVoidAsync("MindMap.addNode", _containerId, parent.Id, node.Id, node.Topic, node.Data);
+        }
+
+        public abstract ValueTask RemoveNode(T node);
+
+        protected ValueTask RemoveNodeInternal(T node)
+        {
+            return Runtime.InvokeVoidAsync("MindMap.removeNode", _containerId, node.Id);
         }
 
         public ValueTask SelectNode(T node)

@@ -15,9 +15,15 @@
     <link type="text/css" rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
     <link type="text/css" rel="stylesheet" href="css/site.css" />
     <link type="text/css" rel="stylesheet" href="_content/jsMind.Blazor/jsmind.min.css" />
-
-    <script type="text/javascript" src="_content/jsMind.Blazor/jsmind.min.js"></script>
-    <script type="text/javascript" src="_content/jsMind.Blazor/jsmind-interop.min.js"></script>
+    
+    <environment include="Development">
+        <script type="text/javascript" src="_content/jsMind.Blazor/jsmind.js"></script>
+        <script type="text/javascript" src="_content/jsMind.Blazor/jsmind-interop.js"></script>
+    </environment>
+    <environment include="Staging,Production">
+        <script type="text/javascript" src="_content/jsMind.Blazor/jsmind.min.js"></script>
+        <script type="text/javascript" src="_content/jsMind.Blazor/jsmind-interop.min.js"></script>
+    </environment>
 </head>
 <body>
 

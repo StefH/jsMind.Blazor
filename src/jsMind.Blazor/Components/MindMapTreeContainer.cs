@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using JsMind.Blazor.Models;
 using Microsoft.AspNetCore.Components;
 
@@ -13,10 +14,29 @@ namespace JsMind.Blazor.Components
 
         public override async ValueTask AddNode(MindMapTreeNode parent, MindMapTreeNode node)
         {
-            await base.AddNode(parent, node);
+            await AddNodeInternal(parent, node);
 
             parent.Children.Add(node);
             node.Parent = parent;
+        }
+
+        public override async ValueTask RemoveNode(MindMapTreeNode node)
+        {
+            await RemoveNodeInternal(node);
+
+            var existingNode = FindTreeNode(Data.RootNode, node.Id);
+            if (existingNode is { })
+            {
+                foreach (var childNode in existingNode.Children.ToList())
+                {
+                    await RemoveNode(childNode);
+                }
+
+                if (existingNode.Parent is MindMapTreeNode parent)
+                {
+                    parent.Children.Remove(existingNode);
+                }
+            }
         }
 
         protected override MindMapTreeNode? FindNode(string id)

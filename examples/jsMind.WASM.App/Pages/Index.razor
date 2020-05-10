@@ -9,11 +9,11 @@ SelectedNodeId = @_selectedNodeId
     <MindMapTreeContainer @ref="_myTreeNodeContainer"
                           Options="@_options"
                           Data="@_treeData"
-                          OnSelectNode=@OnSelectTreeNode
-                          OnAddNode=@OnAddNode
+                          OnSelectNode="@OnSelectTreeNode"
                           OnShow="@OnShowTree"
                           style="border:solid 1px blue; background:#f4f4f4;" />
     <button class="btn btn-primary oi oi-plus" @onclick="AddTreeNode"></button>
+    <button class="btn btn-primary oi oi-minus" @onclick="RemoveTreeNode"></button>
     <button class="btn btn-primary oi oi-collapse-down" @onclick="CollapseTree"></button>
     <button class="btn btn-primary oi oi-check" @onclick="SelectTreeNode"></button>
     <button class="btn btn-primary oi oi-action-undo" @onclick="ClearSelect"></button>
@@ -168,12 +168,23 @@ SelectedNodeId = @_selectedNodeId
         {
             Id = "newTreeId",
             Topic = "new Tree node",
-            //Parent = _treeData.RootNode,
             Data = new Dictionary<string, string> { { "background-color", "lightblue" } }
         };
 
         await _myTreeNodeContainer.SetEditable(true);
         await _myTreeNodeContainer.AddNode(_treeData.RootNode, newTreeNode);
+        await _myTreeNodeContainer.SetEditable(false);
+    }
+
+    async Task RemoveTreeNode()
+    {
+        var node = new MindMapTreeNode
+        {
+            Id = "newTreeId"
+        };
+
+        await _myTreeNodeContainer.SetEditable(true);
+        await _myTreeNodeContainer.RemoveNode(node);
         await _myTreeNodeContainer.SetEditable(false);
     }
 
@@ -191,7 +202,9 @@ SelectedNodeId = @_selectedNodeId
             Data = new Dictionary<string, string> { { "background-color", "darkred" } }
         };
 
+        await _myArrayNodeContainer.SetEditable(true);
         await _myArrayNodeContainer.AddNode(_arrayData1.Nodes.First(), newArrayNode);
+        await _myArrayNodeContainer.SetEditable(false);
     }
 
     async Task ClearSelect()

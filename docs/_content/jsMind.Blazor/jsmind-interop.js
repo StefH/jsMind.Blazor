@@ -1,5 +1,4 @@
 var MindMap = MindMap || {};
-var BlazorLocalStorage = BlazorLocalStorage || {};
 
 const instances = {};
 
@@ -62,6 +61,10 @@ MindMap.addNode = function (containerId, id, parentId, topic, data) {
     instances[containerId].add_node(id, parentId, topic, data);
 }
 
+MindMap.removeNode = function (containerId, id) {
+    instances[containerId].remove_node(id);
+}
+
 MindMap.expandNode = function (containerId, id) {
     instances[containerId].expand_node(id);
 }
@@ -74,7 +77,7 @@ MindMap.expand = function (containerId) {
     instances[containerId].expand_all();
 }
 
-MindMap.expandToDepth = function(containerId, depth) {
+MindMap.expandToDepth = function (containerId, depth) {
     instances[containerId].expand_to_depth(depth);
 }
 
@@ -104,14 +107,4 @@ MindMap.enableEdit = function (containerId) {
 
 MindMap.isEditable = function (containerId) {
     return instances[containerId].get_editable();
-}
-
-BlazorLocalStorage.get = function (key) {
-    return key in localStorage ? JSON.parse(localStorage[key]) : null;
-}
-BlazorLocalStorage.set = function (key, value) {
-    localStorage[key] = JSON.stringify(value);
-}
-BlazorLocalStorage.delete = function (key) {
-    delete localStorage[key];
 }

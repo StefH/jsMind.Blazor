@@ -54,6 +54,8 @@ namespace JsMind.Blazor.Components
 
         protected abstract object MindMapData { get; }
 
+        public List<T> SelectedNodes = new List<T>();
+
         public void Dispose()
         {
             try

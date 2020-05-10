@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.JSInterop;
 
 namespace JsMind.Blazor.Components
@@ -29,6 +30,17 @@ namespace JsMind.Blazor.Components
         public ValueTask SelectNode(T node)
         {
             return Runtime.InvokeVoidAsync("MindMap.selectNode", _containerId, node.Id);
+        }
+
+        public ValueTask SelectNodes(List<T> nodes)
+        {
+            SelectedNodes = nodes;
+            return Runtime.InvokeVoidAsync("MindMap.selectNodes", _containerId, nodes);
+        }
+
+        public ValueTask<T> GetNode(string id)
+        {
+            return Runtime.InvokeAsync<T>("MindMap.getNode", _containerId, id);
         }
 
         public ValueTask ClearSelect()

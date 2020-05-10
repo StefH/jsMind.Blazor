@@ -14,7 +14,7 @@ MindMap.show = function (dotnetReference, containerId, mindMapOptions, mindMapDa
             "version": "1.0"
         },
         "format": mindMapData.format,
-        "data": mindMapData.data,
+        "data": mindMapData.data
     };
 
     const options = {
@@ -23,8 +23,8 @@ MindMap.show = function (dotnetReference, containerId, mindMapOptions, mindMapDa
         theme: mindMapOptions.theme
     }
 
-    // Keep a reference to the javascript MindMap object
-    instances[containerId] = window.jsMind.show(options, mind);
+    const mm = window.jsMind.show(options, mind);;
+    mm["multiSelect"] = mindMapOptions.multiSelect;
 
     // Call a callback to indicate that the MindMap is shown
     dotnetReference.invokeMethodAsync("OnShowCallback", { evt: "done", node: "", data: [] });
@@ -50,11 +50,50 @@ MindMap.show = function (dotnetReference, containerId, mindMapOptions, mindMapDa
         }
     }
 
-    instances[containerId].add_event_listener(eventHandler);
-};
+    // Custom
+    if (mindMapOptions.multiSelect) {
+        mm.selectedNodes = [];
+
+        const mousedown_handle = function (e) {
+            e.preventDefault();
+
+            const element = e.target || event.srcElement;
+            const id = this.view.get_binded_nodeid(element);
+            if (id && element.tagName.toLowerCase() === "jmnode") {
+                const node = mm.get_node(id);
+
+                // If already selected: remove from selected list and remove class
+                if (mm.selectedNodes.includes(id)) {
+                    node._data.view.element.className = node._data.view.element.className.replace(/\s*selected\b/g, "");
+
+                    mm.selectedNodes.pop(id);
+                } else {
+                    node._data.view.element.className += " selected";
+
+                    mm.selectedNodes.push(id);
+                }
+
+                //instances[containerId].select_clear();
+
+                //mm.selectedNodes.forEach(selectedId => {
+                //    const selectedNode = instances[containerId].get_node(selectedId);
+                //    selectedNode._data.view.element.className += " selected";
+                //});
+            }
+        }
+
+        mm.view.add_event(mm, "mousedown", mousedown_handle);
+    }
+
+    mm.add_event_listener(eventHandler);
+
+    // Keep a reference to the javascript MindMap object
+    instances[containerId] = mm;
+}
 
 MindMap.destroy = function (containerId) {
     instances[containerId] = null;
+    delete instances[containerId];
 }
 
 MindMap.addNode = function (containerId, id, parentId, topic, data) {
@@ -89,6 +128,26 @@ MindMap.selectNode = function (containerId, id) {
     instances[containerId].select_node(id);
 }
 
+MindMap.selectNodes = function (containerId, nodes) {
+    if (instances[containerId].multiSelect) {
+        instances[containerId].selectedNodes = [];
+
+        //instances[containerId].select_clear();
+
+        nodes.forEach(node => {
+            const foundNode = instances[containerId].get_node(node.id);
+            foundNode._data.view.element.className += " selected";
+            //instances[containerId].clear_node_custom_style(foundNode);
+
+            instances[containerId].selectedNodes.push(node.id);
+        });
+    }
+}
+
+MindMap.getNode = function (containerId, id) {
+    return mapNode(instances[containerId].get_node(id));
+}
+
 MindMap.clearSelect = function (containerId) {
     instances[containerId].select_clear();
 }
@@ -107,4 +166,16 @@ MindMap.enableEdit = function (containerId) {
 
 MindMap.isEditable = function (containerId) {
     return instances[containerId].get_editable();
+}
+
+mapNode = function (node) {
+    // Skip children property (TypeError: Converting circular structure to JSON)
+    return {
+        id: node.id,
+        topic: node.topic,
+        expanded: node.expanded,
+        direction: node.direction,
+        data: node.data,
+        parentId: node.parentId
+    };
 }

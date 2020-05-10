@@ -39,6 +39,7 @@ SelectedNodeId = @_selectedNodeId
     readonly MindMapOptions _options = new MindMapOptions
     {
         Editable = false,
+        MultiSelect = true,
         Theme = MindMapThemes.Primary
     };
 
@@ -49,7 +50,7 @@ SelectedNodeId = @_selectedNodeId
             Id = "root",
             Topic = "-Root-",
             Children = new List<MindMapTreeNode>
-            {
+    {
                 new MindMapTreeNode
                 {
                     Id = "sub1.0",
@@ -60,7 +61,7 @@ SelectedNodeId = @_selectedNodeId
                     Id = "sub1.1",
                     Topic = "sub1.1-right",
                     Children = new List<MindMapTreeNode>
-                    {
+            {
                         new MindMapTreeNode
                         {
                             Id = "sub1.1a",
@@ -86,7 +87,7 @@ SelectedNodeId = @_selectedNodeId
     readonly MindMapArrayData _arrayData1 = new MindMapArrayData
     {
         Nodes = new List<MindMapArrayNode>
-        {
+{
             new MindMapArrayNode
             {
                 IsRoot = true,
@@ -146,6 +147,14 @@ SelectedNodeId = @_selectedNodeId
 
     async Task OnShowTree(EventArgs args)
     {
+        var found = await _myTreeNodeContainer.GetNode("root");
+        var selected = new List<MindMapTreeNode>
+        {
+            _treeData.RootNode,
+            _treeData.RootNode.Children.Last()
+        };
+        await _myTreeNodeContainer.SelectNodes(selected);
+
         await _myTreeNodeContainer.Expand();
     }
 
@@ -168,7 +177,7 @@ SelectedNodeId = @_selectedNodeId
         {
             Id = "newTreeId",
             Topic = "new Tree node",
-            Data = new Dictionary<string, string> { { "background-color", "lightblue" } }
+            Data = new Dictionary<string, string> { { "background-color", "lightblue" }, { "class", "selected" } }
         };
 
         await _myTreeNodeContainer.SetEditable(true);

@@ -165,12 +165,12 @@
     void OnSelectTreeNode(MindMapEventArgs<MindMapTreeNode> args)
     {
         var treeNode = args.Node;
-        _selectedNodeId = treeNode.GetType().Name + " - " + treeNode.Id;
+        //_selectedNodeId = treeNode.GetType().Name + " - " + treeNode.Id;
     }
 
     void OnMultiSelectNodes(MindMapMultiSelectEventArgs<MindMapTreeNode> args)
     {
-        _selectedNodeId = args.Node.GetType().Name + " - " + args.Node.Id;
+        _selectedNodeId = args.Node != null ? args.Node.GetType().Name + " - " + args.Node.Id : "/none/";
         _selectedNodeIds = args.Nodes.Select(n => n.Id).ToArray();
     }
 
@@ -184,8 +184,7 @@
         var newTreeNode = new MindMapTreeNode
         {
             Id = "newTreeId",
-            Topic = "new Tree node",
-            Data = new Dictionary<string, string> { { "background-color", "lightblue" }, { "class", "selected" } }
+            Topic = "new Tree node"
         };
 
         await _myTreeNodeContainer.SetEditable(true);

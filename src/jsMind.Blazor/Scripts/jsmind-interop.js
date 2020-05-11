@@ -61,25 +61,34 @@ MindMap.show = function (dotnetReference, containerId, mindMapOptions, mindMapDa
             const id = this.view.get_binded_nodeid(element);
             if (id && element.tagName.toLowerCase() === "jmnode") {
                 const node = mm.get_node(id);
+
+                var selectedNodeId;
                 
                 // Check if already selected
-                if (mm.selectedNodes.includes(id)) {
+                const index = mm.selectedNodes.indexOf(id);
+                if (index > -1) {
+                    // Remove from list
+                    mm.selectedNodes.splice(index, 1);
+
                     // Remove the 'selected' class
                     updateSelectedClass(node, false);
 
-                    // Remove from list
-                    mm.selectedNodes.pop(id);
+                    // Set selectedId to null
+                    selectedNodeId = null;
                 } else {
                     // Add to list
                     mm.selectedNodes.push(id);
+
+                    // Set selectedId to this node
+                    selectedNodeId = id;
                 }
 
                 mm.selectedNodes.forEach(selectedId => {
-                    const selectedNode = instances[containerId].get_node(selectedId);
+                    const selectedNode = mm.get_node(selectedId);
                     updateSelectedClass(selectedNode, true);
                 });
 
-                dotnetReference.invokeMethodAsync("OnMultiSelectCallback", { id: node.id, ids: mm.selectedNodes });
+                dotnetReference.invokeMethodAsync("OnMultiSelectCallback", { id: selectedNodeId, ids: mm.selectedNodes });
             }
         }
 
@@ -97,8 +106,11 @@ MindMap.destroy = function (containerId) {
     delete instances[containerId];
 }
 
-MindMap.addNode = function (containerId, id, parentId, topic, data) {
-    instances[containerId].add_node(id, parentId, topic, data);
+MindMap.addNode = function (containerId, parentId, id, topic, data) {
+    instances[containerId].add_node(parentId, id, topic, data);
+
+    var n = instances[containerId].get_node(id);
+    var x = 9;
 }
 
 MindMap.removeNode = function (containerId, id) {

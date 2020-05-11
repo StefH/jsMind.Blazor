@@ -64,7 +64,7 @@
                     Id = "sub1.1",
                     Topic = "sub1.1-right",
                     Children = new List<MindMapTreeNode>
-        {
+    {
                         new MindMapTreeNode
                         {
                             Id = "sub1.1a",
@@ -152,7 +152,7 @@
     {
         var found = await _myTreeNodeContainer.GetNode("root");
         var selected = new List<MindMapTreeNode>
-    {
+{
             _treeData.RootNode,
             _treeData.RootNode.Children.Last()
         };

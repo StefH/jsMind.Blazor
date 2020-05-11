@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using JsMind.Blazor.Events;
@@ -66,6 +67,18 @@ namespace JsMind.Blazor.Components
                     await OnSelectNode.InvokeAsync(new MindMapEventArgs<T> { Node = FindNode(evt.NodeId) });
                     break;
             }
+        }
+
+        [JSInvokable]
+        public async ValueTask OnMultiSelectCallback(InteropMultiSelectEventData evt)
+        {
+            SelectedNodes = evt.Ids.Select(FindNode).Where(node => node != null).Cast<T>().ToList();
+
+            await OnMultiSelectNodes.InvokeAsync(new MindMapMultiSelectEventArgs<T>
+            {
+                Node = FindNode(evt.Id),
+                Nodes = SelectedNodes
+            });
         }
 
         protected abstract T? FindNode(string id);

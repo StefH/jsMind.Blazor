@@ -2,6 +2,6 @@
 {
     public abstract class MindMapData
     {
-        public virtual string Format { get; }
+        public abstract string Format { get; }
     }
 }

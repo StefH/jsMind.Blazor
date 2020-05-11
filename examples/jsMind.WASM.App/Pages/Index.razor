@@ -2,7 +2,8 @@
 
 <h1>jsMind Demo</h1>
 
-SelectedNodeId = @_selectedNodeId
+<pre>SelectedNodeId = @_selectedNodeId</pre>
+<pre>SelectedNodeIds = @string.Join(",", _selectedNodeIds)</pre>
 
 <div>
     <label>TreeNodes</label>
@@ -10,6 +11,7 @@ SelectedNodeId = @_selectedNodeId
                           Options="@_options"
                           Data="@_treeData"
                           OnSelectNode="@OnSelectTreeNode"
+                          OnMultiSelectNodes="@OnMultiSelectNodes"
                           OnShow="@OnShowTree"
                           style="border:solid 1px blue; background:#f4f4f4;" />
     <button class="btn btn-primary oi oi-plus" @onclick="AddTreeNode"></button>
@@ -35,10 +37,12 @@ SelectedNodeId = @_selectedNodeId
     private MindMapTreeContainer _myTreeNodeContainer;
     private MindMapArrayContainer _myArrayNodeContainer;
     private string _selectedNodeId = "";
+    private string[] _selectedNodeIds = new string[0];
 
     readonly MindMapOptions _options = new MindMapOptions
     {
         Editable = false,
+        MultiSelect = true,
         Theme = MindMapThemes.Primary
     };
 
@@ -49,7 +53,7 @@ SelectedNodeId = @_selectedNodeId
             Id = "root",
             Topic = "-Root-",
             Children = new List<MindMapTreeNode>
-        {
+{
                 new MindMapTreeNode
                 {
                     Id = "sub1.0",
@@ -60,7 +64,7 @@ SelectedNodeId = @_selectedNodeId
                     Id = "sub1.1",
                     Topic = "sub1.1-right",
                     Children = new List<MindMapTreeNode>
-                {
+    {
                         new MindMapTreeNode
                         {
                             Id = "sub1.1a",
@@ -86,7 +90,7 @@ SelectedNodeId = @_selectedNodeId
     readonly MindMapArrayData _arrayData1 = new MindMapArrayData
     {
         Nodes = new List<MindMapArrayNode>
-    {
+{
             new MindMapArrayNode
             {
                 IsRoot = true,
@@ -146,6 +150,15 @@ SelectedNodeId = @_selectedNodeId
 
     async Task OnShowTree(EventArgs args)
     {
+        var found = await _myTreeNodeContainer.GetNode("root");
+        var selected = new List<MindMapTreeNode>
+{
+            _treeData.RootNode,
+            _treeData.RootNode.Children.Last()
+        };
+        await _myTreeNodeContainer.SelectNodes(selected);
+        _selectedNodeIds = selected.Select(n => n.Id).ToArray();
+
         await _myTreeNodeContainer.Expand();
     }
 
@@ -153,8 +166,12 @@ SelectedNodeId = @_selectedNodeId
     {
         var treeNode = args.Node;
         _selectedNodeId = treeNode.GetType().Name + " - " + treeNode.Id;
+    }
 
-        StateHasChanged();
+    void OnMultiSelectNodes(MindMapMultiSelectEventArgs<MindMapTreeNode> args)
+    {
+        _selectedNodeId = args.Node.GetType().Name + " - " + args.Node.Id;
+        _selectedNodeIds = args.Nodes.Select(n => n.Id).ToArray();
     }
 
     void OnAddNode(MindMapAddNodeEventArgs<MindMapTreeNode> args)
@@ -168,7 +185,7 @@ SelectedNodeId = @_selectedNodeId
         {
             Id = "newTreeId",
             Topic = "new Tree node",
-            Data = new Dictionary<string, string> { { "background-color", "lightblue" } }
+            Data = new Dictionary<string, string> { { "background-color", "lightblue" }, { "class", "selected" } }
         };
 
         await _myTreeNodeContainer.SetEditable(true);

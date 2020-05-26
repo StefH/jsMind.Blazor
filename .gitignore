@@ -352,4 +352,6 @@ MigrationBackup/
 
 # Custom
 /docs-temp
-src/jsMind.Blazor/wwwroot/*.*
+
+#src/jsMind.Blazor/wwwroot/*.js
+#src/jsMind.Blazor/wwwroot/*.css

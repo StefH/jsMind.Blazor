@@ -39,13 +39,14 @@
     <script type="text/javascript">
         var i = 0;
         window.loadResourceCallback = (total, response) => {
+            console.log(response.url);
             if (response.url.endsWith('.dll')) {
                 i++;
                 const value = parseInt(((1.0 * i) / total) * 100) + '%';
                 const progressbar = document.getElementById('progressbar');
                 progressbar.style.width = value;
                 progressbar.innerHTML = value;
-                console.log(value + '/' + total + ' ' + response.url);
+                console.log(i + '/' + total + ' (' + value + ') ' + response.url);
             }
         }
     </script>

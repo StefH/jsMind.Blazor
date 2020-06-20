@@ -40,14 +40,14 @@
     <script type="text/javascript">
         const progressbar = document.getElementById('progressbar');
         var i = 0;
-        window.loadResourceCallback = (total, response) => {
-            if (response.url.endsWith('.dll')) {
+        window.loadResourceCallback = (total, name, response) => {
+            if (name.endsWith('.dll')) {
                 i++;
                 const value = parseInt((i * 100.0) / total);
                 const pct = value + '%';
 
                 progressbar.style.width = pct;
-                console.log(i + '/' + total + ' (' + pct + ') ' + response.url);
+                console.log(i + '/' + total + ' (' + pct + ') ' + name);
             }
         }
     </script>

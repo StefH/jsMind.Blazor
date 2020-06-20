@@ -25,10 +25,11 @@
             <div class="row">
                 <div class="col-2"></div>
                 <div class="col-8">
+                    <p></p>
                     Loading Blazor WebAssembly...
                     <br />
                     <div class="progress">
-                        <div id="progressbar" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">1%</div>
+                        <div id="progressbar" class="progress-bar progress-bar-striped active" role="progressbar" style="width:0"></div>
                     </div>
                 </div>
                 <div class="col-2"></div>
@@ -37,15 +38,16 @@
     </app>
 
     <script type="text/javascript">
+        const progressbar = document.getElementById('progressbar');
         var i = 0;
         window.loadResourceCallback = (total, response) => {
             if (response.url.endsWith('.dll')) {
                 i++;
-                const value = parseInt(((1.0 * i) / total) * 100) + '%';
-                const progressbar = document.getElementById('progressbar');
-                progressbar.style.width = value;
-                progressbar.innerHTML = value;
-                console.log(i + '/' + total + ' (' + value + ') ' + response.url);
+                const value = parseInt((i * 100.0) / total);
+                const pct = value + '%';
+
+                progressbar.style.width = pct;
+                console.log(i + '/' + total + ' (' + pct + ') ' + response.url);
             }
         }
     </script>
@@ -90,7 +92,8 @@
         <a class="dismiss">🗙</a>
     </div>
     <script type="text/javascript" src="_framework/blazor.webassembly.js"></script>
-    <script>navigator.serviceWorker.register('service-worker.js');</script>
+    <!--<script type="text/javascript" src="2blazor.webassembly.js"></script>-->
+    <!--<script>navigator.serviceWorker.register('service-worker.js');</script>-->
 </body>
 
 </html>

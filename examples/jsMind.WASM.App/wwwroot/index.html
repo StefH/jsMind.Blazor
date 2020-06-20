@@ -20,20 +20,29 @@
 </head>
 
 <body>
-    <app>Loading...</app>
-    <div class="progress">
-        <div id="progressbar" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-1"></div>
+            <div class="col-10">
+                <app>Loading...</app>
+                <div class="progress">
+                    <div id="progressbar" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+                </div>
+            </div>
+            <div class="col-1"></div>
+        </div>
     </div>
 
     <script type="text/javascript">
         var i = 0;
-        window.loadResourceCallback = (num, response) => {
+        window.loadResourceCallback = (total, response) => {
             if (response.url.endsWith('.dll')) {
                 i++;
-                var value = parseInt(((1.0 * i) / num) * 100) + '%';
-                var progressbar = document.getElementById('progressbar');
+                const value = parseInt(((1.0 * i) / total) * 100) + '%';
+                const progressbar = document.getElementById('progressbar');
                 progressbar.style.width = value;
                 progressbar.innerHTML = value;
+                console.log(value + ' ' + response.url);
             }
         }
     </script>
@@ -59,8 +68,10 @@
                     q[a[0]] = a.slice(1).join('=').replace(/~and~/g, '&');
                 });
                 if (q.p !== undefined) {
-                    window.history.replaceState(null, null,
-                        l.pathname.slice(0, -1) + (q.p || '') +
+                    window.history.replaceState(null,
+                        null,
+                        l.pathname.slice(0, -1) +
+                        (q.p || '') +
                         (q.q ? ('?' + q.q) : '') +
                         l.hash
                     );

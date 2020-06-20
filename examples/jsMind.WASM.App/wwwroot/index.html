@@ -39,7 +39,6 @@
     <script type="text/javascript">
         var i = 0;
         window.loadResourceCallback = (total, response) => {
-            console.log(response.url);
             if (response.url.endsWith('.dll')) {
                 i++;
                 const value = parseInt(((1.0 * i) / total) * 100) + '%';

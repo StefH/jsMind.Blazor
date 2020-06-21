@@ -30,7 +30,7 @@ jobs:
         include: "blazor.webassembly.js"
         
     - name: BlazorWebAssemblyFileHashFixer
-      uses: stefh/ghaction-BlazorWebAssemblyFileHashFixer@0.1
+      uses: stefh/ghaction-BlazorWebAssemblyFileHashFixer@0.2
       with:
         wwwroot-path: '.'
 

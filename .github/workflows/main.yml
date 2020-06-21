@@ -37,7 +37,7 @@ jobs:
     - name: BlazorWebAssemblyFileHashFixer 2
       uses: stefh/ghaction-BlazorWebAssemblyFileHashFixer@0.7
       with:
-        wwwroot-path: '.'
+        wwwroot-path: ${{ env.PUBLISH_DIR }}
 
     - name: GitHub Pages
       if: success()

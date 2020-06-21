@@ -12,6 +12,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+  
+    - name: BlazorWebAssemblyFileHashFixer 1
+      uses: stefh/ghaction-BlazorWebAssemblyFileHashFixer@0.5
+      with:
+        wwwroot-path: '.'
 
     - name: Publish app
       run: dotnet publish -c Release examples/jsMind.WASM.App
@@ -29,8 +34,8 @@ jobs:
         replace: "var p = r.loadResource(o,t(o),e[o],n); p.response.then((x) => { if (typeof window.loadResourceCallback === 'function') { window.loadResourceCallback(Object.keys(e).length, o, x);}}); return p;"
         include: "blazor.webassembly.js"
         
-    - name: BlazorWebAssemblyFileHashFixer
-      uses: stefh/ghaction-BlazorWebAssemblyFileHashFixer@0.4
+    - name: BlazorWebAssemblyFileHashFixer 2
+      uses: stefh/ghaction-BlazorWebAssemblyFileHashFixer@0.5
       with:
         wwwroot-path: '.'
 

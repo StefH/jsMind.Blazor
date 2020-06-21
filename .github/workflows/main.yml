@@ -29,7 +29,7 @@ jobs:
         replace: "var p = r.loadResource(o,t(o),e[o],n); p.response.then((x) => { if (typeof window.loadResourceCallback === 'function') { window.loadResourceCallback(Object.keys(e).length, o, x);}}); return p;"
         include: "blazor.webassembly.js"
         
-    - name: BlazorWebAssemblyFileHashFixer.
+    - name: BlazorWebAssemblyFileHashFixer
       uses: stefh/ghaction-BlazorWebAssemblyFileHashFixer@v1
       with:
         wwwroot-path: '.'

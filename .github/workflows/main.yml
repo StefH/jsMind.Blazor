@@ -39,6 +39,12 @@ jobs:
       with:
         wwwroot-path: ${{ env.PUBLISH_DIR }}
 
+
+    - name: CompressFiles
+      uses: stefh/ghaction-CompressFiles@v1
+      with:
+        path: ${{ env.PUBLISH_DIR }}
+
     - name: GitHub Pages
       if: success()
       uses: crazy-max/ghaction-github-pages@v1.5.1

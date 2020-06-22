@@ -41,7 +41,7 @@ jobs:
 
 
     - name: CompressFiles
-      uses: stefh/ghaction-CompressFiles@0.9
+      uses: stefh/ghaction-CompressFiles@0.91
       with:
         path: ${{ env.PUBLISH_DIR }}
 

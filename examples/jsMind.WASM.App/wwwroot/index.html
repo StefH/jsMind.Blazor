@@ -103,29 +103,24 @@
             loadBootResource: function (type, name, defaultUri, integrity) {
                 console.log('loadBootResource: ' + name + ' ' + defaultUri);
 
-                if (location.hostname !== 'localhost') {
+                if (location.hostname !== 'localhost' && type !== 'dotnetjs') {
                     const defaultUriBr = defaultUri + '.br';
 
-                    if (type !== 'dotnetjs') {
-                        return (async function () {
-                            console.log('fetching: ' + defaultUriBr);
-                            const response = await fetch(defaultUriBr, { cache: 'no-cache' });
-                            if (!response.ok) {
-                                throw new Error(response.statusText);
-                            }
-                            const originalResponseBuffer = await response.arrayBuffer();
-                            const originalResponseArray = new Int8Array(originalResponseBuffer);
-                            const decompressedResponseArray = BrotliDecode(originalResponseArray);
+                    return (async function () {
+                        console.log('fetching: ' + defaultUriBr);
+                        const response = await fetch(defaultUriBr, { cache: 'no-cache' });
+                        if (!response.ok) {
+                            throw new Error(response.statusText);
+                        }
+                        const originalResponseBuffer = await response.arrayBuffer();
+                        const originalResponseArray = new Int8Array(originalResponseBuffer);
+                        const decompressedResponseArray = BrotliDecode(originalResponseArray);
 
-                            console.log('fetched: ' + defaultUriBr + ' ' + originalResponseArray.length + '/' + decompressedResponseArray.length);
+                        console.log('fetched: ' + defaultUriBr + ' ' + originalResponseArray.length + '/' + decompressedResponseArray.length);
 
-                            const contentType = type === 'dotnetwasm' ? 'application/wasm' : 'application/octet-stream';
-                            return new Response(decompressedResponseArray, { headers: { 'content-type': contentType } });
-                        })();
-                    }
-                    else {
-                        return defaultUriBr;
-                    }
+                        const contentType = type === 'dotnetwasm' ? 'application/wasm' : 'application/octet-stream';
+                        return new Response(decompressedResponseArray, { headers: { 'content-type': contentType } });
+                    })();
                 }
             }
         });

@@ -106,7 +106,7 @@
                     return (async function () {
                         const defaultUriBr = defaultUri + '.br';
                         console.log('fetching: ' + defaultUriBr);
-                        const response = await fetch(defaultUriBr + '.br', { cache: 'no-cache' });
+                        const response = await fetch(defaultUriBr, { cache: 'no-cache' });
                         if (!response.ok) {
                             throw new Error(response.statusText);
                         }

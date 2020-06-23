@@ -103,11 +103,10 @@
             loadBootResource: function (type, name, defaultUri, integrity) {
                 console.log('loadBootResource: ' + name + ' ' + defaultUri);
 
-
                 if (location.hostname !== 'localhost') {
-                    if (type !== 'dotnetjs') {
-                        const defaultUriBr = defaultUri + '.br';
+                    const defaultUriBr = defaultUri + '.br';
 
+                    if (type !== 'dotnetjs') {
                         return (async function () {
                             console.log('fetching: ' + defaultUriBr);
                             const response = await fetch(defaultUriBr, { cache: 'no-cache' });

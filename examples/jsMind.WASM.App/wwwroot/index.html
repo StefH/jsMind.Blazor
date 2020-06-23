@@ -102,7 +102,7 @@
         Blazor.start({
             loadBootResource: function (type, name, defaultUri, integrity) {
                 console.log('loadBootResource: ' + name + ' ' + defaultUri);
-                if (location.hostname !== 'localhost') { // type !== 'dotnetjs' && 
+                if (location.hostname !== 'localhost') { // type !== 'dotnetjs' &&
                     return (async function () {
                         const defaultUriBr = defaultUri + '.br';
                         console.log('fetching: ' + defaultUriBr);
@@ -113,6 +113,9 @@
                         const originalResponseBuffer = await response.arrayBuffer();
                         const originalResponseArray = new Int8Array(originalResponseBuffer);
                         const decompressedResponseArray = BrotliDecode(originalResponseArray);
+
+                        console.log('fetched: ' + defaultUriBr + ' ' + originalResponseArray.length + '/' + decompressedResponseArray.length);
+
                         const contentType = type === 'dotnetwasm' ? 'application/wasm' : 'application/octet-stream';
                         return new Response(decompressedResponseArray, { headers: { 'content-type': contentType } });
                     })();

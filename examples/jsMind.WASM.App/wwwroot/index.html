@@ -101,11 +101,11 @@
         // This is needed only because GitHub pages doesn't natively support Brotli (or even gzip for .dll files)
         Blazor.start({
             loadBootResource: function (type, name, defaultUri, integrity) {
-                // console.log(name + ' ' + defaultUri);
+                console.log('loadBootResource: ' + name + ' ' + defaultUri);
                 if (type !== 'dotnetjs' && location.hostname !== 'localhost') {
                     return (async function () {
                         const defaultUriBr = defaultUri + '.br';
-                        // console.log(defaultUriBr);
+                        console.log('fetching: ' + defaultUriBr);
                         const response = await fetch(defaultUriBr + '.br', { cache: 'no-cache' });
                         if (!response.ok) {
                             throw new Error(response.statusText);

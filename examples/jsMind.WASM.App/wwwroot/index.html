@@ -102,7 +102,7 @@
         Blazor.start({
             loadBootResource: function (type, name, defaultUri, integrity) {
                 console.log('loadBootResource: ' + name + ' ' + defaultUri);
-                if (type !== 'dotnetjs' && location.hostname !== 'localhost') {
+                if (location.hostname !== 'localhost') { // type !== 'dotnetjs' && 
                     return (async function () {
                         const defaultUriBr = defaultUri + '.br';
                         console.log('fetching: ' + defaultUriBr);

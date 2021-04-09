@@ -53,7 +53,7 @@
             Id = "root",
             Topic = "-Root-",
             Children = new List<MindMapTreeNode>
-{
+            {
                 new MindMapTreeNode
                 {
                     Id = "sub1.0",
@@ -64,7 +64,7 @@
                     Id = "sub1.1",
                     Topic = "sub1.1-right",
                     Children = new List<MindMapTreeNode>
-{
+                {
                         new MindMapTreeNode
                         {
                             Id = "sub1.1a",
@@ -90,7 +90,7 @@
     readonly MindMapArrayData _arrayData1 = new MindMapArrayData
     {
         Nodes = new List<MindMapArrayNode>
-{
+        {
             new MindMapArrayNode
             {
                 IsRoot = true,
@@ -152,7 +152,7 @@
     {
         var found = await _myTreeNodeContainer.GetNode("root");
         var selected = new List<MindMapTreeNode>
-{
+    {
             _treeData.RootNode,
             _treeData.RootNode.Children.Last()
         };

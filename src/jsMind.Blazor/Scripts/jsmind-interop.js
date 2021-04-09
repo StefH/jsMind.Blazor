@@ -108,9 +108,6 @@ MindMap.destroy = function (containerId) {
 
 MindMap.addNode = function (containerId, parentId, id, topic, data) {
     instances[containerId].add_node(parentId, id, topic, data);
-
-    var n = instances[containerId].get_node(id);
-    var x = 9;
 }
 
 MindMap.removeNode = function (containerId, id) {

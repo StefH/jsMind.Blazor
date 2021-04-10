@@ -12,5 +12,7 @@ namespace JsMind.Blazor.Events.Interop
 
         [JsonPropertyName("node")]
         public string NodeId { get; set; }
+
+        public string ContainerId { get; set; }
     }
 }

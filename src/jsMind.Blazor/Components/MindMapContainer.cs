@@ -27,7 +27,7 @@ namespace JsMind.Blazor.Components
         public EventCallback<MindMapAddNodeEventArgs<T>> OnAddNode { get; set; }
 
         [Parameter]
-        public EventCallback<EventArgs> OnShow { get; set; }
+        public EventCallback<ValueEventArgs<string>> OnShow { get; set; }
 
         [Parameter]
         public MindMapOptions Options { get; set; }

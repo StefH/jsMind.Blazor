@@ -26,8 +26,12 @@ namespace JsMind.Blazor.Components
                     // todo
                     break;
 
+                // { evt: "done", node: "", data: [ ], containerId: containerId }
                 case "done":
-                    await OnShow.InvokeAsync(EventArgs.Empty);
+                    await OnShow.InvokeAsync(new ValueEventArgs<string>
+                    {
+                        Value = evt.ContainerId
+                    });
                     break;
             }
         }

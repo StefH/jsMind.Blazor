@@ -23,11 +23,8 @@ MindMap.show = function (dotnetReference, containerId, mindMapOptions, mindMapDa
         theme: mindMapOptions.theme
     }
 
-    const mm = window.jsMind.show(options, mind);;
+    const mm = window.jsMind.show(options, mind);
     mm["multiSelect"] = mindMapOptions.multiSelect;
-
-    // Call a callback to indicate that the MindMap is shown
-    dotnetReference.invokeMethodAsync("OnShowCallback", { evt: "done", node: "", data: [] });
 
     const eventHandler = function (type, data) {
         // show: 1, resize: 2, edit: 3, select: 4
@@ -63,7 +60,7 @@ MindMap.show = function (dotnetReference, containerId, mindMapOptions, mindMapDa
                 const node = mm.get_node(id);
 
                 var selectedNodeId;
-                
+
                 // Check if already selected
                 const index = mm.selectedNodes.indexOf(id);
                 if (index > -1) {
@@ -99,6 +96,9 @@ MindMap.show = function (dotnetReference, containerId, mindMapOptions, mindMapDa
 
     // Keep a reference to the javascript MindMap object
     instances[containerId] = mm;
+
+    // Call a callback to indicate that the MindMap is completely shown (and the instances correctly updated with the containerId)
+    dotnetReference.invokeMethodAsync("OnShowCallback", { evt: "done", node: "", data: [], containerId: containerId });
 }
 
 MindMap.destroy = function (containerId) {
@@ -175,7 +175,7 @@ MindMap.isEditable = function (containerId) {
     return instances[containerId].get_editable();
 }
 
-updateSelectedClass = function(node, set) {
+updateSelectedClass = function (node, set) {
     if (set && !(/\s*selected\b/i).test(node._data.view.element.className)) {
         node._data.view.element.className += " selected";
     }

@@ -151,6 +151,14 @@
     async Task OnShowTree(ValueEventArgs<string> args)
     {
         Console.WriteLine($"OnShowTree for {args.Value}");
+        if (_myTreeNodeContainer.Nodes is not null)
+        {
+            foreach (var node in _myTreeNodeContainer.Nodes)
+            {
+                Console.WriteLine($"Node : {node.Id} - {node.Topic}");
+            }
+        }
+
 
         var found = await _myTreeNodeContainer.GetNode("root");
         var selected = new List<MindMapTreeNode>

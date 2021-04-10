@@ -35,7 +35,7 @@ jobs:
         include: "blazor.webassembly.js"
         
     - name: BlazorWebAssemblyFileHashFixer 2
-      uses: stefh/ghaction-BlazorWebAssemblyFileHashFixer@v1
+      uses: stefh/ghaction-BlazorWebAssemblyFileHashFixer@v2
       with:
         wwwroot-path: ${{ env.PUBLISH_DIR }}
 

@@ -1,3 +1,6 @@
+# 0.0.4 (11 April 2021)
+- [#3](https://github.com/StefH/jsMind.Blazor/pull/3) - MindMapTreeContainer.Nodes [enhancement] contributed by [StefH](https://github.com/StefH)
+
 # 0.0.3 (10 April 2021)
 - [#2](https://github.com/StefH/jsMind.Blazor/pull/2) - Fix for OnShow [bug] contributed by [StefH](https://github.com/StefH)
 

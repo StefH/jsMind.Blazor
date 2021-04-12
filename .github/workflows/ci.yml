@@ -1,0 +1,44 @@
+name: DeployToGitHubPages
+env:
+  PUBLISH_DIR: examples/jsMind.WASM.App/bin/Release/net5.0/publish/wwwroot
+
+on:
+  push:
+    branches: [ '**' ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+  
+    - name: BlazorWebAssemblyFileHashFixer 1
+      uses: stefh/ghaction-BlazorWebAssemblyFileHashFixer@v1
+      with:
+        wwwroot-path: '.'
+
+    - name: Publish app
+      run: dotnet publish -c Release examples/jsMind.WASM.App
+
+    - name: Rewrite base href
+      uses: SteveSandersonMS/ghaction-rewrite-base-href@v1
+      with:
+        html_path: ${{ env.PUBLISH_DIR }}/index.html
+        base_href: /jsMind.Blazor/
+        
+    - name: Patch blazor.webassembly.js
+      uses: jacobtomlinson/gha-find-replace@master
+      with:
+        find: "return r.loadResource\\(o,t\\(o\\),e\\[o\\],n\\)"
+        replace: "var p = r.loadResource(o,t(o),e[o],n); p.response.then((x) => { if (typeof window.loadResourceCallback === 'function') { window.loadResourceCallback(Object.keys(e).length, o, x);}}); return p;"
+        include: "blazor.webassembly.js"
+        
+    - name: BlazorWebAssemblyFileHashFixer 2
+      uses: stefh/ghaction-BlazorWebAssemblyFileHashFixer@v2
+      with:
+        wwwroot-path: ${{ env.PUBLISH_DIR }}
+
+    - name: CompressFiles
+      uses: stefh/ghaction-CompressFiles@0.92
+      with:
+        path: ${{ env.PUBLISH_DIR }}

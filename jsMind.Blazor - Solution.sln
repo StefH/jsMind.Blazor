@@ -11,7 +11,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Directory.Build.props = Directory.Build.props
 		GitHubReleaseNotes.txt = GitHubReleaseNotes.txt
 		LICENSE = LICENSE
-		.github\workflows\main.yml = .github\workflows\main.yml
 		publish-docs.cmd = publish-docs.cmd
 		README.md = README.md
 		ReleaseNotes.md = ReleaseNotes.md
@@ -24,6 +23,12 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "jsMind.WASM.App", "examples\jsMind.WASM.App\jsMind.WASM.App.csproj", "{CDFCECB1-1960-470B-841C-1E1BD58DBA4E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "jsMind.Server.App", "examples\jsMind.Server.App\jsMind.Server.App.csproj", "{92B1FB32-A017-4BF3-AE99-D8C150F01207}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Actions", "Actions", "{0AEAB383-20CA-42EE-906E-378E70F2C8AA}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\ci.yml = .github\workflows\ci.yml
+		.github\workflows\main.yml = .github\workflows\main.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +56,7 @@ Global
 		{D3804221-1234-4502-9595-39584E5A1977} = {8A9BC34B-DF33-49C3-AB28-92AEEBD45F84}
 		{CDFCECB1-1960-470B-841C-1E1BD58DBA4E} = {FF14D365-9746-4E03-BF45-927F704C9314}
 		{92B1FB32-A017-4BF3-AE99-D8C150F01207} = {FF14D365-9746-4E03-BF45-927F704C9314}
+		{0AEAB383-20CA-42EE-906E-378E70F2C8AA} = {B2EEFDB4-1549-4898-95BE-11E3CDBB86DA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B6A8922C-F54E-40FD-B26A-0E636A9EE552}

@@ -1,11 +1,11 @@
 name: DeployToGitHubPages
 env:
   PUBLISH_DIR: examples/jsMind.WASM.App/bin/Release/net5.0/publish/wwwroot
+  PUBLISH_XXX: src/CoronaDashboard/bin/Release/net5.0/publish/wwwroot
 
-# Controls when the action will run
 on:
   push:
-    branches: [ master ]
+    branches: [ '**' ]
 
 jobs:
   build:
@@ -43,12 +43,3 @@ jobs:
       uses: stefh/ghaction-CompressFiles@0.92
       with:
         path: ${{ env.PUBLISH_DIR }}
-
-    - name: GitHub Pages
-      if: success()
-      uses: crazy-max/ghaction-github-pages@v1.5.1
-      with:
-        target_branch: gh-pages
-        build_dir: ${{ env.PUBLISH_DIR }}
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

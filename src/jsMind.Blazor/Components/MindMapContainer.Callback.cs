@@ -68,7 +68,14 @@ namespace JsMind.Blazor.Components
             {
                 case "select_node":
                     // this.invoke_event_handle(jm.event_type.select, { evt: 'select_node', data: [], node: node.id });
-                    await OnSelectNode.InvokeAsync(new MindMapEventArgs<T> { Node = FindNode(evt.NodeId) });
+
+                    var node = FindNode(evt.NodeId);
+
+                    await OnSelectNode.InvokeAsync(new MindMapSingleSelectEventArgs<T>
+                    {
+                        Node = node,
+                        Selected = node is not null && SelectedNodes.Any(n => n.Id == node.Id)
+                    });
                     break;
             }
         }

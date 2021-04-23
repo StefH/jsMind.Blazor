@@ -172,10 +172,9 @@
         await _myTreeNodeContainer.Expand();
     }
 
-    void OnSelectTreeNode(MindMapEventArgs<MindMapTreeNode> args)
+    void OnSelectTreeNode(MindMapSingleSelectEventArgs<MindMapTreeNode> args)
     {
-        var treeNode = args.Node;
-        //_selectedNodeId = treeNode.GetType().Name + " - " + treeNode.Id;
+        _selectedNodeId = args.Node != null ? args.Node.GetType().Name + " - " + args.Node.Id + " and selected = " + args.Selected: "/none/";
     }
 
     void OnMultiSelectNodes(MindMapMultiSelectEventArgs<MindMapTreeNode> args)

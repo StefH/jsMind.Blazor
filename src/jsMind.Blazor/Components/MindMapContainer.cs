@@ -18,7 +18,7 @@ namespace JsMind.Blazor.Components
         private IJSRuntime Runtime { get; set; }
 
         [Parameter]
-        public EventCallback<MindMapEventArgs<T>> OnSelectNode { get; set; }
+        public EventCallback<MindMapSingleSelectEventArgs<T>> OnSelectNode { get; set; }
 
         [Parameter]
         public EventCallback<MindMapMultiSelectEventArgs<T>> OnMultiSelectNodes { get; set; }

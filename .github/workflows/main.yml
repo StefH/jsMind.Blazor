@@ -1,4 +1,4 @@
-name: DeployToGitHubPages
+name: 'Build and Deploy to GitHubPages'
 env:
   PUBLISH_DIR: examples/jsMind.WASM.App/bin/Release/net5.0/publish/wwwroot
 

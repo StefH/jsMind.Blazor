@@ -1,3 +1,6 @@
+# 0.0.6 (27 April 2021)
+- [#6](https://github.com/StefH/jsMind.Blazor/pull/6) - ReadOnly [enhancement] contributed by [StefH](https://github.com/StefH)
+
 # 0.0.5 (23 April 2021)
 - [#4](https://github.com/StefH/jsMind.Blazor/pull/4) - Use net5.0 for example project [enhancement] contributed by [StefH](https://github.com/StefH)
 - [#5](https://github.com/StefH/jsMind.Blazor/pull/5) - OnSelectCallback also defines if the node was selected or de-selected [enhancement] contributed by [StefH](https://github.com/StefH)

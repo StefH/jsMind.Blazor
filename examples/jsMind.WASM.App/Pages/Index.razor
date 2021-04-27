@@ -19,6 +19,8 @@
     <button class="btn btn-primary oi oi-collapse-down" @onclick="CollapseTree"></button>
     <button class="btn btn-primary oi oi-check" @onclick="SelectTreeNode"></button>
     <button class="btn btn-primary oi oi-action-undo" @onclick="ClearSelect"></button>
+    <button class="btn btn-primary oi oi-envelope-open" @onclick="MindMapClickable"></button>
+    <button class="btn btn-primary oi oi-envelope-closed" @onclick="MindMapNotClickable"></button>
 </div>
 <hr />
 <div>
@@ -235,6 +237,16 @@
     async Task ClearSelect()
     {
         await _myTreeNodeContainer.ClearSelect();
+    }
+
+    async Task MindMapClickable()
+    {
+        await _myTreeNodeContainer.SetReadonly(false);
+    }
+
+    async Task MindMapNotClickable()
+    {
+        await _myTreeNodeContainer.SetReadonly(true);
     }
 
     async Task CollapseTree()

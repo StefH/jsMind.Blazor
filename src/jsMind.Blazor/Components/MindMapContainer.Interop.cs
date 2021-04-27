@@ -92,17 +92,20 @@ namespace JsMind.Blazor.Components
             return Runtime.InvokeVoidAsync("MindMap.collapse", _containerId);
         }
 
-        public ValueTask SetReadonly(bool @readonly)
+        public async ValueTask SetReadonly(bool @readonly)
         {
             Options.Readonly = @readonly;
 
-            return Runtime.InvokeVoidAsync(@readonly ? "MindMap.enableReadonly" : "MindMap.disableReadonly", _containerId);
+            await Runtime.InvokeVoidAsync("MindMap.setReadOnly", _containerId, @readonly);
+
+            if (@readonly)
+            {
+                await SetEditable(false);
+            }
         }
 
-        public async ValueTask<bool> IsReadonly()
+        public bool IsReadonly()
         {
-            // Options.Readonly = await Runtime.InvokeAsync<bool>("MindMap.isReadonly", _containerId);
-
             return Options.Readonly;
         }
 

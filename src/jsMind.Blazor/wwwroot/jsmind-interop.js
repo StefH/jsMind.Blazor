@@ -24,6 +24,11 @@ MindMap.show = function (dotnetReference, containerId, mindMapOptions, mindMapDa
     }
 
     const mm = window.jsMind.show(options, mind);
+
+    // ReadOnly
+    setReadOnly(mm, mindMapOptions.readOnly);
+
+    // MultiSelect
     mm["multiSelect"] = mindMapOptions.multiSelect;
 
     const eventHandler = function (type, data) {
@@ -52,6 +57,10 @@ MindMap.show = function (dotnetReference, containerId, mindMapOptions, mindMapDa
         mm.selectedNodes = [];
 
         const mousedownHandleMultiSelect = function (e) {
+            if (!mm.options.default_event_handle.enable_mousedown_handle) {
+                return;
+            }
+
             e.preventDefault();
 
             const element = e.target || event.srcElement;
@@ -59,7 +68,7 @@ MindMap.show = function (dotnetReference, containerId, mindMapOptions, mindMapDa
             if (id && element.tagName.toLowerCase() === "jmnode") {
                 const node = mm.get_node(id);
 
-                var selectedNodeId;
+                let selectedNodeId;
 
                 // Check if already selected
                 const index = mm.selectedNodes.indexOf(id);
@@ -175,6 +184,10 @@ MindMap.isEditable = function (containerId) {
     return instances[containerId].get_editable();
 }
 
+MindMap.setReadOnly = function (containerId, isReadOnly) {
+    return setReadOnly(instances[containerId], isReadOnly);
+}
+
 updateSelectedClass = function (node, set) {
     if (set && !(/\s*selected\b/i).test(node._data.view.element.className)) {
         node._data.view.element.className += " selected";
@@ -193,5 +206,13 @@ mapNode = function (node) {
         direction: node.direction,
         data: node.data,
         parentId: node.parentId
+    };
+}
+
+setReadOnly = function (mm, isReadOnly) {
+    mm.options.default_event_handle = {
+        enable_mousedown_handle: !isReadOnly,
+        enable_click_handle: !isReadOnly,
+        enable_dblclick_handle: !isReadOnly
     };
 }

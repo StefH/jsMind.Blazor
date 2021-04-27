@@ -42,6 +42,12 @@ namespace JsMind.Blazor.Components
             builder.OpenElement(0, "div");
             builder.AddAttribute(1, "id", _containerId);
             builder.AddMultipleAttributes(2, AdditionalAttributes);
+
+            if (true)
+            {
+                builder.AddAttribute(3, "pointer-events", "none");
+            }
+
             builder.CloseElement();
         }
 

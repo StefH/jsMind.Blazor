@@ -6,6 +6,8 @@ namespace JsMind.Blazor.Models
     {
         public bool Editable { get; set; }
 
+        public bool Readonly { get; set; }
+
         public bool MultiSelect { get; set; }
 
         public string Theme { get; set; } = MindMapThemes.Primary;

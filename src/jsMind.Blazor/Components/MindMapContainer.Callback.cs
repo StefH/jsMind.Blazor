@@ -40,10 +40,12 @@ namespace JsMind.Blazor.Components
         public async ValueTask OnResizeCallback(InteropEventData evt)
         {
             // todo
+            int x = 0;
+            Console.WriteLine("OnResizeCallback@!!!!!!!!!!!!");
         }
 
         [JSInvokable]
-        public async ValueTask OnEditCallback(InteropEventData evt)
+        public async ValueTask OnEditCallback(InteropNodeEventData evt)
         {
             switch (evt.Type)
             {
@@ -62,7 +64,7 @@ namespace JsMind.Blazor.Components
         }
 
         [JSInvokable]
-        public async ValueTask OnSelectCallback(InteropEventData evt)
+        public async ValueTask OnSelectCallback(InteropNodeEventData evt)
         {
             switch (evt.Type)
             {

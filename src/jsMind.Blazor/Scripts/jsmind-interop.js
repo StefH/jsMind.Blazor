@@ -31,15 +31,25 @@ MindMap.show = function (dotnetReference, containerId, mindMapOptions, mindMapDa
     // MultiSelect
     mm["multiSelect"] = mindMapOptions.multiSelect;
 
-    const eventHandler = function (type, data) {
+    const eventHandler = async function (type, data) {
+        console.log(type);
+        console.log(data);
+
         // show: 1, resize: 2, edit: 3, select: 4
         switch (type) {
             case 1:
+                console.log('invoking : OnShowCallback');
                 dotnetReference.invokeMethodAsync("OnShowCallback", data);
                 break;
 
             case 2:
-                dotnetReference.invokeMethodAsync("OnResizeCallback", data);
+                console.log('invoking : OnResizeCallback');
+                try {
+                    await dotnetReference.invokeMethodAsync("OnResizeCallback", { evt: "resize", containerId: containerId });
+                }
+                catch (e) {
+                    console.warn(e);
+                }
                 break;
 
             case 3:
@@ -47,6 +57,7 @@ MindMap.show = function (dotnetReference, containerId, mindMapOptions, mindMapDa
                 break;
 
             case 4:
+                console.log('invoking : OnSelectCallback');
                 dotnetReference.invokeMethodAsync("OnSelectCallback", data);
                 break;
         }
@@ -107,7 +118,7 @@ MindMap.show = function (dotnetReference, containerId, mindMapOptions, mindMapDa
     instances[containerId] = mm;
 
     // Call a callback to indicate that the MindMap is completely shown (and the instances correctly updated with the containerId)
-    dotnetReference.invokeMethodAsync("OnShowCallback", { evt: "done", node: "", data: [], containerId: containerId });
+    dotnetReference.invokeMethodAsync("OnShowCallback", { evt: "done", containerId: containerId });
 }
 
 MindMap.destroy = function (containerId) {

@@ -8,10 +8,7 @@ namespace JsMind.Blazor.Events.Interop
         [JsonPropertyName("evt")]
         public string Type { get; set; }
 
-        public JsonElement[] Data { get; set; }
-
-        [JsonPropertyName("node")]
-        public string NodeId { get; set; }
+        public JsonElement[]? Data { get; set; }
 
         public string ContainerId { get; set; }
     }

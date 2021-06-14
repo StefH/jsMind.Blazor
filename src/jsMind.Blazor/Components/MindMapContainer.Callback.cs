@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -40,8 +39,16 @@ namespace JsMind.Blazor.Components
         public async ValueTask OnResizeCallback(InteropEventData evt)
         {
             // todo
-            int x = 0;
-            Console.WriteLine("OnResizeCallback@!!!!!!!!!!!!");
+            switch (evt.Type)
+            {
+                // { evt: "resize", data: [ ], containerId: containerId }
+                case "resize":
+                    await OnResize.InvokeAsync(new ValueEventArgs<string>
+                    {
+                        Value = evt.ContainerId
+                    });
+                    break;
+            }
         }
 
         [JSInvokable]

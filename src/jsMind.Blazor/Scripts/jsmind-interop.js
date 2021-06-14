@@ -32,34 +32,30 @@ MindMap.show = function (dotnetReference, containerId, mindMapOptions, mindMapDa
     mm["multiSelect"] = mindMapOptions.multiSelect;
 
     const eventHandler = async function (type, data) {
-        console.log(type);
-        console.log(data);
-
         // show: 1, resize: 2, edit: 3, select: 4
-        switch (type) {
-            case 1:
-                console.log('invoking : OnShowCallback');
-                dotnetReference.invokeMethodAsync("OnShowCallback", data);
-                break;
+        try {
+            switch (type) {
+                case 1:
+                    //console.log('invoking : OnShowCallback');
+                    //dotnetReference.invokeMethodAsync("OnShowCallback", data);
+                    break;
 
-            case 2:
-                console.log('invoking : OnResizeCallback');
-                try {
+                case 2:
                     await dotnetReference.invokeMethodAsync("OnResizeCallback", { evt: "resize", containerId: containerId });
-                }
-                catch (e) {
-                    console.warn(e);
-                }
-                break;
+                    break;
 
-            case 3:
-                dotnetReference.invokeMethodAsync("OnEditCallback", data);
-                break;
+                case 3:
+                    //dotnetReference.invokeMethodAsync("OnEditCallback", data);
+                    break;
 
-            case 4:
-                console.log('invoking : OnSelectCallback');
-                dotnetReference.invokeMethodAsync("OnSelectCallback", data);
-                break;
+                case 4:
+                    //console.log('invoking : OnSelectCallback');
+                    //dotnetReference.invokeMethodAsync("OnSelectCallback", data);
+                    break;
+            }
+        }
+        catch (e) {
+            console.warn(e);
         }
     }
 

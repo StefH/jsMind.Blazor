@@ -13,6 +13,7 @@
                           OnSelectNode="@OnSelectTreeNode"
                           OnMultiSelectNodes="@OnMultiSelectNodes"
                           OnShow="@OnShowTree"
+                          OnResize="@OnResize"
                           style="border:solid 1px blue; background:#f4f4f4;" />
     <button class="btn btn-primary oi oi-plus" @onclick="AddTreeNode"></button>
     <button class="btn btn-primary oi oi-minus" @onclick="RemoveTreeNode"></button>
@@ -148,6 +149,13 @@
         _arrayData2.Nodes.Add(sub2);
 
         return base.OnInitializedAsync();
+    }
+
+    Task OnResize(ValueEventArgs<string> args)
+    {
+        Console.WriteLine($"OnResize for {args.Value}");
+
+        return Task.CompletedTask;
     }
 
     async Task OnShowTree(ValueEventArgs<string> args)

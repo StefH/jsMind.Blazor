@@ -41,7 +41,7 @@ namespace JsMind.Blazor.Components
             // todo
             switch (evt.Type)
             {
-                // { evt: "resize", data: [ ], containerId: containerId }
+                // { evt: "resize", data: [], containerId: containerId }
                 case "resize":
                     await OnResize.InvokeAsync(new ValueEventArgs<string>
                     {

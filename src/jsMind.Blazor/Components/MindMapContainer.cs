@@ -30,6 +30,9 @@ namespace JsMind.Blazor.Components
         public EventCallback<ValueEventArgs<string>> OnShow { get; set; }
 
         [Parameter]
+        public EventCallback<ValueEventArgs<string>> OnResize { get; set; }
+
+        [Parameter]
         public MindMapOptions Options { get; set; }
 
         [Parameter(CaptureUnmatchedValues = true)]

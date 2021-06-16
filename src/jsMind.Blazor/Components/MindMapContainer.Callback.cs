@@ -38,7 +38,6 @@ namespace JsMind.Blazor.Components
         [JSInvokable]
         public async ValueTask OnResizeCallback(InteropEventData evt)
         {
-            // todo
             switch (evt.Type)
             {
                 // { evt: "resize", data: [], containerId: containerId }

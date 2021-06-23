@@ -1,5 +1,8 @@
+# 0.0.10 (23 June 2021)
+- [#8](https://github.com/StefH/jsMind.Blazor/pull/8) - Fix OnSelectCallback [bug] contributed by [StefH](https://github.com/StefH)
+
 # 0.0.9 (16 June 2021)
-- [#7](https://github.com/StefH/jsMind.Blazor/pull/7) - Resize callback contributed by [StefH](https://github.com/StefH)
+- [#7](https://github.com/StefH/jsMind.Blazor/pull/7) - Resize callback [enhancement] contributed by [StefH](https://github.com/StefH)
 
 # 0.0.6 (27 April 2021)
 - [#6](https://github.com/StefH/jsMind.Blazor/pull/6) - ReadOnly [enhancement] contributed by [StefH](https://github.com/StefH)

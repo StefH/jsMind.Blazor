@@ -36,7 +36,6 @@ MindMap.show = function (dotnetReference, containerId, mindMapOptions, mindMapDa
         try {
             switch (type) {
                 case 1:
-                    //console.log('invoking : OnShowCallback');
                     //dotnetReference.invokeMethodAsync("OnShowCallback", data);
                     break;
 
@@ -45,12 +44,11 @@ MindMap.show = function (dotnetReference, containerId, mindMapOptions, mindMapDa
                     break;
 
                 case 3:
-                    //dotnetReference.invokeMethodAsync("OnEditCallback", data);
+                    await dotnetReference.invokeMethodAsync("OnEditCallback", data);
                     break;
 
                 case 4:
-                    //console.log('invoking : OnSelectCallback');
-                    //dotnetReference.invokeMethodAsync("OnSelectCallback", data);
+                    await dotnetReference.invokeMethodAsync("OnSelectCallback", data);
                     break;
             }
         }

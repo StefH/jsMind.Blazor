@@ -14,11 +14,11 @@
     <PackageReference Include="System.Text.Json" Version="5.0.0" />
   </ItemGroup>
 
-  <!--<ItemGroup>
+  <ItemGroup Condition="'$(Configuration)' == 'Release'">
     <PackageReference Include="jsMind.Blazor" Version="0.0.10" />
-  </ItemGroup>-->
+  </ItemGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition="'$(Configuration)' == 'Debug'">
     <ProjectReference Include="..\..\src\jsMind.Blazor\jsMind.Blazor.csproj" />
   </ItemGroup>
 

@@ -1,3 +1,6 @@
+# 0.0.11 (16 November 2021)
+- [#10](https://github.com/StefH/jsMind.Blazor/pull/10) - Added update functionality [enhancement] contributed by [wkoeter](https://github.com/wkoeter)
+
 # 0.0.10 (23 June 2021)
 - [#8](https://github.com/StefH/jsMind.Blazor/pull/8) - Fix OnSelectCallback [bug] contributed by [StefH](https://github.com/StefH)
 

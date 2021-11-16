@@ -15,6 +15,11 @@ namespace JsMind.Blazor.Components
 
         public abstract ValueTask AddNode(T parent, T node);
 
+        public ValueTask UpdateNodeTopic(T node, string topic)
+        {
+            return Runtime.InvokeVoidAsync("MindMap.updateNode", _containerId, node.Id, topic);
+        }
+
         protected ValueTask AddNodeInternal(T parent, T node)
         {
             return Runtime.InvokeVoidAsync("MindMap.addNode", _containerId, parent.Id, node.Id, node.Topic, node.Data);

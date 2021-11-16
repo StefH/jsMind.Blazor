@@ -124,6 +124,10 @@ MindMap.addNode = function (containerId, parentId, id, topic, data) {
     instances[containerId].add_node(parentId, id, topic, data);
 }
 
+MindMap.updateNode = function (containerId, id, topic) {
+    instances[containerId].update_node(id, topic);
+}
+
 MindMap.removeNode = function (containerId, id) {
     instances[containerId].remove_node(id);
 }

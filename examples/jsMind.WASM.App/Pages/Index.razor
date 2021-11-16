@@ -15,6 +15,7 @@
                           OnShow="@OnShowTree"
                           OnResize="@OnResize"
                           style="border:solid 1px blue; background:#f4f4f4;" />
+    <button class="btn btn-primary oi oi-pencil" @onclick="UpdateRootNode"></button>
     <button class="btn btn-primary oi oi-plus" @onclick="AddTreeNode"></button>
     <button class="btn btn-primary oi oi-minus" @onclick="RemoveTreeNode"></button>
     <button class="btn btn-primary oi oi-collapse-down" @onclick="CollapseTree"></button>
@@ -28,6 +29,7 @@
     <label>ArrayNodes with parentId</label>
     <MindMapArrayContainer @ref="_myArrayNodeContainer" Options="@_options" Data="@_arrayData1" style="border:solid 1px red; background:#f4f4f4;" />
     <button class="btn btn-primary oi oi-plus" @onclick="AddArrayNode"></button>
+    <button class="btn btn-primary oi oi-pencil" @onclick="UpdateArrayRootNode"></button>
 </div>
 <hr />
 <div>
@@ -211,6 +213,13 @@
         await _myTreeNodeContainer.SetEditable(false);
     }
 
+    async Task UpdateRootNode()
+    {
+        await _myTreeNodeContainer.SetEditable(true);
+        await _myTreeNodeContainer.UpdateNodeTopic(_treeData.RootNode, "Updated Root");
+        await _myTreeNodeContainer.SetEditable(false);
+    }
+
     async Task RemoveTreeNode()
     {
         var node = new MindMapTreeNode
@@ -239,6 +248,15 @@
 
         await _myArrayNodeContainer.SetEditable(true);
         await _myArrayNodeContainer.AddNode(_arrayData1.Nodes.First(), newArrayNode);
+        await _myArrayNodeContainer.SetEditable(false);
+    }
+
+    async Task UpdateArrayRootNode()
+    {
+        var node = await _myArrayNodeContainer.GetNode("root");
+
+        await _myArrayNodeContainer.SetEditable(true);
+        await _myArrayNodeContainer.UpdateNodeTopic(node, "Updated array Root");
         await _myArrayNodeContainer.SetEditable(false);
     }
 

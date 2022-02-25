@@ -121,43 +121,43 @@ MindMap.destroy = function (containerId) {
 }
 
 MindMap.addNode = function (containerId, parentId, id, topic, data) {
-    instances[containerId].add_node(parentId, id, topic, data);
+    instances[containerId] && instances[containerId].add_node(parentId, id, topic, data);
 }
 
 MindMap.updateNode = function (containerId, id, topic) {
-    instances[containerId].update_node(id, topic);
+    instances[containerId] && instances[containerId].update_node(id, topic);
 }
 
 MindMap.removeNode = function (containerId, id) {
-    instances[containerId].remove_node(id);
+    instances[containerId] && instances[containerId].remove_node(id);
 }
 
 MindMap.expandNode = function (containerId, id) {
-    instances[containerId].expand_node(id);
+    instances[containerId] && instances[containerId].expand_node(id);
 }
 
 MindMap.collapseNode = function (containerId, id) {
-    instances[containerId].collapse_node(id);
+    instances[containerId] && instances[containerId].collapse_node(id);
 }
 
 MindMap.expand = function (containerId) {
-    instances[containerId].expand_all();
+    instances[containerId] && instances[containerId].expand_all();
 }
 
 MindMap.expandToDepth = function (containerId, depth) {
-    instances[containerId].expand_to_depth(depth);
+    instances[containerId] && instances[containerId].expand_to_depth(depth);
 }
 
 MindMap.collapse = function (containerId) {
-    instances[containerId].collapse_all();
+    instances[containerId] && instances[containerId].collapse_all();
 }
 
 MindMap.selectNode = function (containerId, id) {
-    instances[containerId].select_node(id);
+    instances[containerId] && instances[containerId].select_node(id);
 }
 
 MindMap.selectNodes = function (containerId, nodes) {
-    if (instances[containerId].multiSelect) {
+    if (instances[containerId] && instances[containerId].multiSelect) {
         instances[containerId].selectedNodes = [];
 
         nodes.forEach(node => {
@@ -170,31 +170,31 @@ MindMap.selectNodes = function (containerId, nodes) {
 }
 
 MindMap.getNode = function (containerId, id) {
-    return mapNode(instances[containerId].get_node(id));
+    return instances[containerId] ? mapNode(instances[containerId].get_node(id)) : undefined;
 }
 
 MindMap.clearSelect = function (containerId) {
-    instances[containerId].select_clear();
+    instances[containerId] && instances[containerId].select_clear();
 }
 
 MindMap.setTheme = function (containerId, theme) {
-    instances[containerId].set_theme(theme);
+    instances[containerId] && instances[containerId].set_theme(theme);
 }
 
 MindMap.disableEdit = function (containerId) {
-    instances[containerId].disable_edit();
+    instances[containerId] && instances[containerId].disable_edit();
 }
 
 MindMap.enableEdit = function (containerId) {
-    instances[containerId].enable_edit();
+    instances[containerId] && instances[containerId].enable_edit();
 }
 
 MindMap.isEditable = function (containerId) {
-    return instances[containerId].get_editable();
+    return instances[containerId] ? instances[containerId].get_editable() : false;
 }
 
 MindMap.setReadOnly = function (containerId, isReadOnly) {
-    return setReadOnly(instances[containerId], isReadOnly);
+    return instances[containerId] ? setReadOnly(instances[containerId], isReadOnly) : false;
 }
 
 updateSelectedClass = function (node, set) {

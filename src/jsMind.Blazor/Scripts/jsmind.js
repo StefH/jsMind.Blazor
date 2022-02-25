@@ -1,6 +1,6 @@
-﻿/*
+/*
  * Released under BSD License
- * Copyright (c) 2014-2016 hizzgdev@163.com
+ * Copyright (c) 2014-2021 hizzgdev@163.com
  *
  * Project Home:
  *   https://github.com/hizzgdev/jsmind/
@@ -289,7 +289,7 @@
 
         insert_node_after: function (node_after, nodeid, topic, data) {
             if (!jm.util.is_node(node_after)) {
-                var the_node_after = this.get_node(node_before);
+                var the_node_after = this.get_node(node_after);
                 if (!the_node_after) {
                     logger.error('the node_after[id=' + node_after + '] can not be found.');
                     return null;
@@ -533,7 +533,7 @@
                     d = node_json.direction == 'left' ? jm.direction.left : jm.direction.right;
                 }
                 var node = mind.add_node(node_parent, node_json.id, node_json.topic, data, null, d, node_json.expanded);
-                if ('children' in node_json) {
+                if (!!node_json['children']) {
                     var children = node_json.children;
                     for (var i = 0; i < children.length; i++) {
                         df._extract_subnode(mind, node, children[i]);
@@ -2222,7 +2222,7 @@
         this.view = view;
         this.opts = view.opts;
         this.e_svg = jm.graph_svg.c('svg');
-        this.e_svg.className = 'jsmind';
+        this.e_svg.setAttribute('class', 'jsmind');
         this.size = { w: 0, h: 0 };
         this.lines = [];
     };
@@ -2313,6 +2313,7 @@
             this.graph = this.opts.engine.toLowerCase() === 'svg' ? new jm.graph_svg(this) : new jm.graph_canvas(this);
 
             this.e_panel.className = 'jsmind-inner';
+            this.e_panel.tabIndex = 1;
             this.e_panel.appendChild(this.graph.element());
             this.e_panel.appendChild(this.e_nodes);
 
@@ -2810,7 +2811,7 @@
 
     jm.shortcut_provider.prototype = {
         init: function () {
-            jm.util.dom.add_event($d, 'keydown', this.handler.bind(this));
+            jm.util.dom.add_event(this.jm.view.e_panel, 'keydown', this.handler.bind(this));
 
             this.handles['addchild'] = this.handle_addchild;
             this.handles['addbrother'] = this.handle_addbrother;
@@ -2844,6 +2845,7 @@
         },
 
         handler: function (e) {
+            if (e.which == 9) { e.preventDefault(); } //prevent tab to change focus in browser
             if (this.jm.view.is_editing()) { return; }
             var evt = e || event;
             if (!this.opts.enable) { return true; }

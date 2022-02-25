@@ -1,3 +1,7 @@
+# 0.0.12 (25 February 2022)
+- [#11](https://github.com/StefH/jsMind.Blazor/pull/11) - Include latest version from jsmind.js and jsmind.css [enhancement] contributed by [StefH](https://github.com/StefH)
+- [#12](https://github.com/StefH/jsMind.Blazor/pull/12) - Add check for null instances [bug] contributed by [StefH](https://github.com/StefH)
+
 # 0.0.11 (16 November 2021)
 - [#10](https://github.com/StefH/jsMind.Blazor/pull/10) - Added update functionality [enhancement] contributed by [wkoeter](https://github.com/wkoeter)
 

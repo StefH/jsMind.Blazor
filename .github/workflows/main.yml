@@ -40,7 +40,7 @@ jobs:
         wwwroot-path: ${{ env.PUBLISH_DIR }}
 
     - name: CompressFiles
-      uses: stefh/ghaction-CompressFiles@0.92
+      uses: stefh/ghaction-CompressFiles@v2
       with:
         path: ${{ env.PUBLISH_DIR }}
 

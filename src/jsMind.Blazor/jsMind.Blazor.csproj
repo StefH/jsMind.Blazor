@@ -7,6 +7,7 @@
 		<RootNamespace>JsMind.Blazor</RootNamespace>
 		<Authors>Stef Heyenrath</Authors>
 		<TargetFramework>netstandard2.1</TargetFramework>
+        <LangVersion>10</LangVersion>
 		<PackageId>jsMind.Blazor</PackageId>
 		<PackageTags>Blazor;jsMind;MindMap;Mind;Map;jsinterop</PackageTags>
 		<PackageReleaseNotes>See ReleaseNotes.md</PackageReleaseNotes>

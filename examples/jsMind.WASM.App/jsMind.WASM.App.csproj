@@ -16,7 +16,7 @@
     </ItemGroup>
 
     <ItemGroup Condition="'$(Configuration)' == 'Release'">
-        <PackageReference Include="jsMind.Blazor" Version="0.0.12" />
+        <PackageReference Include="jsMind.Blazor" Version="0.0.13" />
     </ItemGroup>
 
     <ItemGroup Condition="'$(Configuration)' == 'Debug'">

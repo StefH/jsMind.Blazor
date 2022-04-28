@@ -1,5 +1,6 @@
-# 0.0.13 (28 April 2022)
+# 0.0.14 (28 April 2022)
 - [#13](https://github.com/StefH/jsMind.Blazor/pull/13) - Fix clearSelect when TreeMap is multiSelect [bug] contributed by [StefH](https://github.com/StefH)
+- [#14](https://github.com/StefH/jsMind.Blazor/pull/14) - Fix clearSelect [bug] contributed by [StefH](https://github.com/StefH)
 
 # 0.0.12 (25 February 2022)
 - [#11](https://github.com/StefH/jsMind.Blazor/pull/11) - Include latest version from jsmind.js and jsmind.css [enhancement] contributed by [StefH](https://github.com/StefH)

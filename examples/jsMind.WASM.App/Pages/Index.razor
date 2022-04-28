@@ -15,21 +15,21 @@
                           OnShow="@OnShowTree"
                           OnResize="@OnResize"
                           style="border:solid 1px blue; background:#f4f4f4;" />
-    <button class="btn btn-primary oi oi-pencil" @onclick="UpdateRootNode"></button>
-    <button class="btn btn-primary oi oi-plus" @onclick="AddTreeNode"></button>
-    <button class="btn btn-primary oi oi-minus" @onclick="RemoveTreeNode"></button>
-    <button class="btn btn-primary oi oi-collapse-down" @onclick="CollapseTree"></button>
-    <button class="btn btn-primary oi oi-check" @onclick="SelectTreeNode"></button>
-    <button class="btn btn-primary oi oi-action-undo" @onclick="ClearSelect"></button>
-    <button class="btn btn-primary oi oi-envelope-open" @onclick="MindMapClickable"></button>
-    <button class="btn btn-primary oi oi-envelope-closed" @onclick="MindMapNotClickable"></button>
+    <button class="btn btn-primary" @onclick="UpdateRootNode">UpdateRootNode</button>
+    <button class="btn btn-primary" @onclick="AddTreeNode">AddTreeNode</button>
+    <button class="btn btn-primary" @onclick="RemoveTreeNode">RemoveTreeNode</button>
+    <button class="btn btn-primary" @onclick="CollapseTree">CollapseTree</button>
+    <button class="btn btn-primary" @onclick="SelectTreeNode">SelectTreeNode</button>
+    <button class="btn btn-primary" @onclick="ClearSelect">ClearSelect</button>
+    <button class="btn btn-primary" @onclick="MindMapClickable">MindMapClickable</button>
+    <button class="btn btn-primary" @onclick="MindMapNotClickable">MindMapNotClickable</button>
 </div>
 <hr />
 <div>
     <label>ArrayNodes with parentId</label>
     <MindMapArrayContainer @ref="_myArrayNodeContainer" Options="@_options" Data="@_arrayData1" style="border:solid 1px red; background:#f4f4f4;" />
-    <button class="btn btn-primary oi oi-plus" @onclick="AddArrayNode"></button>
-    <button class="btn btn-primary oi oi-pencil" @onclick="UpdateArrayRootNode"></button>
+    <button class="btn btn-primary" @onclick="AddArrayNode">AddArrayNode</button>
+    <button class="btn btn-primary" @onclick="UpdateArrayRootNode">UpdateArrayRootNode</button>
 </div>
 <hr />
 <div>
@@ -41,74 +41,74 @@
 {
     private MindMapTreeContainer _myTreeNodeContainer;
     private MindMapArrayContainer _myArrayNodeContainer;
-    private string _selectedNodeId = "";
-    private string[] _selectedNodeIds = new string[0];
+    private string _selectedNodeId = string.Empty;
+    private string[] _selectedNodeIds = Array.Empty<string>();
 
-    readonly MindMapOptions _options = new MindMapOptions
+    readonly MindMapOptions _options = new()
     {
         Editable = false,
         MultiSelect = true,
         Theme = MindMapThemes.Primary
     };
 
-    readonly MindMapTreeData _treeData = new MindMapTreeData
+    readonly MindMapTreeData _treeData = new()
     {
         RootNode = new MindMapTreeNode
         {
             Id = "root",
             Topic = "-Root-",
             Children = new List<MindMapTreeNode>
-        {
-                new MindMapTreeNode
+            {
+                new()
                 {
                     Id = "sub1.0",
                     Topic = "sub1.0-right"
                 },
-                new MindMapTreeNode
+                new()
                 {
                     Id = "sub1.1",
                     Topic = "sub1.1-right",
                     Children = new List<MindMapTreeNode>
-            {
-                        new MindMapTreeNode
-                        {
-                            Id = "sub1.1a",
-                            Topic = "sub1.1a-right"
+                    {
+                                new()
+                                {
+                                    Id = "sub1.1a",
+                                    Topic = "sub1.1a-right"
+                                },
+                                new()
+                                {
+                                    Id = "sub1.1b",
+                                    Topic = "sub1.1b-right"
+                                },
+                            }
                         },
-                        new MindMapTreeNode
+                        new()
                         {
-                            Id = "sub1.1b",
-                            Topic = "sub1.1b-right"
-                        },
+                            Id = "sub2",
+                            Topic = "sub2-left",
+                            Direction = MindMapNodeDirection.Left
+                        }
                     }
-                },
-                new MindMapTreeNode
-                {
-                    Id = "sub2",
-                    Topic = "sub2-left",
-                    Direction = MindMapNodeDirection.Left
-                }
             }
-        }
     };
 
-    readonly MindMapArrayData _arrayData1 = new MindMapArrayData
+    readonly MindMapArrayData _arrayData1 = new()
     {
         Nodes = new List<MindMapArrayNode>
     {
-            new MindMapArrayNode
+            new()
             {
                 IsRoot = true,
                 Id = "root",
                 Topic = "-Root-"
             },
-            new MindMapArrayNode
+            new()
             {
                 Id = "sub1",
                 Topic = "sub1-right",
                 ParentId = "root"
             },
-            new MindMapArrayNode
+            new()
             {
                 Id = "sub2",
                 Topic = "sub2-left",
@@ -118,7 +118,7 @@
         }
     };
 
-    readonly MindMapArrayData _arrayData2 = new MindMapArrayData
+    readonly MindMapArrayData _arrayData2 = new()
     {
         Nodes = new List<MindMapArrayNode>()
     };
@@ -170,7 +170,6 @@
                 Console.WriteLine($"Node : {node.Id} - {node.Topic}");
             }
         }
-
 
         var found = await _myTreeNodeContainer.GetNode("root");
         var selected = new List<MindMapTreeNode>

@@ -174,7 +174,16 @@ MindMap.getNode = function (containerId, id) {
 }
 
 MindMap.clearSelect = function (containerId) {
-    instances[containerId] && instances[containerId].select_clear();
+    const instance = instances[containerId];
+    if (instance) {
+        if (instance.multiSelect) {
+            instance.selectedNodes.forEach(node => {
+                updateSelectedClass(instance.get_node(node), false);
+            });
+        } else {
+            instance.select_clear();
+        }
+    }
 }
 
 MindMap.setTheme = function (containerId, theme) {

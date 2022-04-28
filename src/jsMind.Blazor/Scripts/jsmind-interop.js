@@ -59,7 +59,7 @@ MindMap.show = function (dotnetReference, containerId, mindMapOptions, mindMapDa
 
     // Custom
     if (mindMapOptions.multiSelect) {
-        mm.selectedNodes = [];
+        MindMap.clearSelect(containerId);
 
         const mousedownHandleMultiSelect = function (e) {
             if (!mm.options.default_event_handle.enable_mousedown_handle) {
@@ -174,14 +174,15 @@ MindMap.getNode = function (containerId, id) {
 }
 
 MindMap.clearSelect = function (containerId) {
-    const instance = instances[containerId];
-    if (instance) {
-        if (instance.multiSelect) {
-            instance.selectedNodes.forEach(node => {
-                updateSelectedClass(instance.get_node(node), false);
+    const mm = instances[containerId];
+    if (mm) {
+        if (mm.multiSelect) {
+            mm.selectedNodes.forEach(node => {
+                updateSelectedClass(mm.get_node(node), false);
             });
+            mm.selectedNodes = [];
         } else {
-            instance.select_clear();
+            mm.select_clear();
         }
     }
 }

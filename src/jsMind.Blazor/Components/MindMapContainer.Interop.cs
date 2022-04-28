@@ -6,7 +6,7 @@ namespace JsMind.Blazor.Components
 {
     public partial class MindMapContainer<T>
     {
-        private DotNetObjectReference<MindMapContainer<T>> _dotNetObjectReference;
+        private DotNetObjectReference<MindMapContainer<T>> _dotNetObjectReference = null!;
 
         private ValueTask Show()
         {
@@ -50,6 +50,7 @@ namespace JsMind.Blazor.Components
 
         public ValueTask ClearSelect()
         {
+            SelectedNodes = new List<T>();
             return Runtime.InvokeVoidAsync("MindMap.clearSelect", _containerId);
         }
 

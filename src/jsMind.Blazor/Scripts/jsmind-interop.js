@@ -177,9 +177,11 @@ MindMap.clearSelect = function (containerId) {
     const mm = instances[containerId];
     if (mm) {
         if (mm.multiSelect) {
-            mm.selectedNodes.forEach(node => {
-                updateSelectedClass(mm.get_node(node), false);
-            });
+            if (mm.selectedNodes) {
+                mm.selectedNodes.forEach(node => {
+                    updateSelectedClass(mm.get_node(node), false);
+                });
+            }
             mm.selectedNodes = [];
         } else {
             mm.select_clear();

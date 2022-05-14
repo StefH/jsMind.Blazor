@@ -40,6 +40,13 @@ jobs:
         find: "this\\.loadResource\\(r,t\\(r\\),e\\[r\\],n\\)"
         replace: "{ const stef = this.loadResource(r,t(r),e[r],n); stef.response.then((x) => { if (typeof window.loadResourceCallback === 'function') { window.loadResourceCallback(Object.keys(e).length || 1, e); } }); return stef; }"
         include: "blazor.webassembly.js"
+
+    - name: Patch blazor.webassembly.js for .NET 6
+      uses: jacobtomlinson/gha-find-replace@v2
+      with:
+        find: "this\\."
+        replace: "stef"
+        include: "blazor.webassembly.js"
         
     - name: BlazorWebAssemblyFileHashFixer 2
       uses: stefh/ghaction-BlazorWebAssemblyFileHashFixer@v2

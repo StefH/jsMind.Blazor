@@ -29,6 +29,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Actions", "Actions", "{0AEAB383-20CA-42EE-906E-378E70F2C8AA}"
 	ProjectSection(SolutionItems) = preProject
 		.github\workflows\ci.yml = .github\workflows\ci.yml
+		.github\workflows\CreateRelease.yml = .github\workflows\CreateRelease.yml
 		.github\workflows\main.yml = .github\workflows\main.yml
 	EndProjectSection
 EndProject

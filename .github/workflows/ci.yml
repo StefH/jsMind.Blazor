@@ -31,14 +31,14 @@ jobs:
       with:
         find: "return r.loadResource\\(o,t\\(o\\),e\\[o\\],n\\)"
         replace: "var p = r.loadResource(o,t(o),e[o],n); p.response.then((x) => { if (typeof window.loadResourceCallback === 'function') { window.loadResourceCallback(Object.keys(e).length, o, x);}}); return p;"
-        include: "blazor.webassembly.js"
+        include: "**/blazor.webassembly.js"
 
     - name: Patch blazor.webassembly.js for .NET 6
       uses: jacobtomlinson/gha-find-replace@master
       with:
         find: "this.loadResource\\(r,t\\(r\\),e\\[r\\],n\\)"
         replace: "{ const stef = this.loadResource(r,t(r),e[r],n); stef.response.then((x) => { if (typeof window.loadResourceCallback === 'function') { window.loadResourceCallback(Object.keys(e).length || 1, e); } }); return stef; }"
-        include: "blazor.webassembly.js"
+        include: "**/blazor.webassembly.js"
         
     - name: BlazorWebAssemblyFileHashFixer 2
       uses: stefh/ghaction-BlazorWebAssemblyFileHashFixer@v2

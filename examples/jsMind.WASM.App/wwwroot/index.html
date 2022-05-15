@@ -170,18 +170,18 @@
 
                     console.log(`fetching: ${defaultUri}`);
 
-                    const fetchTask = fetch(defaultUri, {
+                    const fetchPromise = fetch(defaultUri, {
                         cache: 'no-cache',
                         integrity: integrity,
                         headers: { 'MyCustomHeader': 'Stef Heyenrath' }
                     });
 
-                    allResourcesBeingLoaded.push(fetchTask);
+                    allResourcesBeingLoaded.push(fetchPromise);
 
-                    fetchTask.then((response) => {
+                    fetchPromise.then((response) => {
                         window.loadResourceCallback(allResourcesBeingLoaded.length, response.url);
                     });
-                    return fetchTask;
+                    return fetchPromise;
                 }
             }
         });

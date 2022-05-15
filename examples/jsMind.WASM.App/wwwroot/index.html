@@ -137,8 +137,7 @@
 
                     fetchTask.then((response) => {
                         const originalResponseBufferPromise = response.arrayBuffer();
-                        originalResponseBufferPromise.then((originalResponseBuffer) =>
-                        {
+                        originalResponseBufferPromise.then((originalResponseBuffer) => {
                             const originalResponseArray = new Int8Array(originalResponseBuffer);
                             const decompressedResponseArray = BrotliDecode(originalResponseArray);
 
@@ -147,7 +146,7 @@
 
                             const contentType = type === 'dotnetwasm' ? 'application/wasm' : 'application/octet-stream';
                             return new Response(decompressedResponseArray, { headers: { 'content-type': contentType } });
-                        }
+                        });
                     });
                     return fetchTask;
 

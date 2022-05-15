@@ -127,28 +127,31 @@
 
                     console.log(`fetching: ${defaultUriBr}`);
 
-                    const fetchTask = fetch(defaultUriBr, {
+                    const fetchPromise = fetch(defaultUriBr, {
                         cache: 'no-cache',
                         integrity: integrity,
                         headers: { 'MyCustomHeader': 'Stef Heyenrath' }
                     });
 
-                    allResourcesBeingLoaded.push(fetchTask);
+                    allResourcesBeingLoaded.push(fetchPromise);
 
-                    fetchTask.then((response) => {
+                    fetchPromise.then((response) => {
+                        window.loadResourceCallback(allResourcesBeingLoaded.length, response.url);
+                    });
+
+                    fetchPromise.then((response) => {
                         const originalResponseBufferPromise = response.arrayBuffer();
                         originalResponseBufferPromise.then((originalResponseBuffer) => {
                             const originalResponseArray = new Int8Array(originalResponseBuffer);
                             const decompressedResponseArray = BrotliDecode(originalResponseArray);
 
                             console.log(`fetched: ${defaultUriBr} ${originalResponseArray.length}/${decompressedResponseArray.length}`);
-                            window.loadResourceCallback(allResourcesBeingLoaded.length, response.url);
 
                             const contentType = type === 'dotnetwasm' ? 'application/wasm' : 'application/octet-stream';
                             return new Response(decompressedResponseArray, { headers: { 'content-type': contentType } });
                         });
                     });
-                    return fetchTask;
+                    return fetchPromise;
 
                     //return (async function () {
                     //    console.log(`fetching: ${defaultUriBr}`);

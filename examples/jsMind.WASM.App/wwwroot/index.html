@@ -123,7 +123,7 @@
                 }
 
                 if (location.hostname !== 'localhost') {
-                    const defaultUriBr = defaultUri + '.br';
+                    const defaultUriBr = `${defaultUri}.br`;
 
                     return (async function () {
                         console.log(`fetching: ${defaultUriBr}`);

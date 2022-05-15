@@ -136,15 +136,18 @@
                     allResourcesBeingLoaded.push(fetchTask);
 
                     fetchTask.then((response) => {
-                        const originalResponseBuffer = response.arrayBuffer();
-                        const originalResponseArray = new Int8Array(originalResponseBuffer);
-                        const decompressedResponseArray = BrotliDecode(originalResponseArray);
+                        const originalResponseBufferPromise = response.arrayBuffer();
+                        originalResponseBufferPromise.then((originalResponseBuffer) =>
+                        {
+                            const originalResponseArray = new Int8Array(originalResponseBuffer);
+                            const decompressedResponseArray = BrotliDecode(originalResponseArray);
 
-                        console.log(`fetched: ${defaultUriBr} ${originalResponseArray.length}/${decompressedResponseArray.length}`);
-                        window.loadResourceCallback(allResourcesBeingLoaded.length, response.url);
+                            console.log(`fetched: ${defaultUriBr} ${originalResponseArray.length}/${decompressedResponseArray.length}`);
+                            window.loadResourceCallback(allResourcesBeingLoaded.length, response.url);
 
-                        const contentType = type === 'dotnetwasm' ? 'application/wasm' : 'application/octet-stream';
-                        return new Response(decompressedResponseArray, { headers: { 'content-type': contentType } });
+                            const contentType = type === 'dotnetwasm' ? 'application/wasm' : 'application/octet-stream';
+                            return new Response(decompressedResponseArray, { headers: { 'content-type': contentType } });
+                        }
                     });
                     return fetchTask;
 

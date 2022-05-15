@@ -13,8 +13,6 @@
     <link href="manifest.json" rel="manifest" />
     <link rel="apple-touch-icon" sizes="512x512" href="icon-512.png" />
 
-    <link type="text/css" rel="stylesheet" href="_content/jsMind.Blazor/jsmind.min.css" />
-
     <!-- jsMind.Blazor -->
     <link type="text/css" rel="stylesheet" href="_content/jsMind.Blazor/jsmind.min.css" />
 </head>
@@ -55,7 +53,7 @@
 
     <script type="text/javascript">
         // https://github.com/dotnet/aspnetcore/issues/25165
-        if (location.hostname === 'localhost' || true) {
+        if (location.hostname === 'localhost') {
             caches.keys().then(function (keyList) {
                 return Promise.all(keyList.map(function (key) {
                     return caches.delete(key);
@@ -81,7 +79,7 @@
             if (l.search) {
                 var q = {};
                 l.search.slice(1).split('&').forEach(function (v) {
-                    var a = v.split('=');
+                    const a = v.split('=');
                     q[a[0]] = a.slice(1).join('=').replace(/~and~/g, '&');
                 });
                 if (q.p !== undefined) {
@@ -89,7 +87,7 @@
                         null,
                         l.pathname.slice(0, -1) +
                         (q.p || '') +
-                        (q.q ? ('?' + q.q) : '') +
+                        (q.q ? (`?${q.q}`) : '') +
                         l.hash
                     );
                 }
@@ -109,9 +107,14 @@
     <!--<script type="text/javascript" src="2blazor.webassembly.js"></script>-->
     <script>navigator.serviceWorker.register('service-worker.js');</script>
     <script>
+        // 1.
+        // https://github.com/dotnet/aspnetcore/issues/25165
+
+        // 2.
         // Workaround for serving compressed content from GitHub Pages
         // For framework resources, use the precompressed .br files for faster downloads
         // This is needed only because GitHub pages doesn't natively support Brotli (or even gzip for .dll files)
+
         const allResourcesBeingLoaded = [];
 
         Blazor.start({
@@ -124,8 +127,6 @@
 
                 const isLocalHost = location.hostname === 'localhost';
 
-                //if (location.hostname === 'localhost') {
-                //const defaultUriBr = `${defaultUri}.br`;
                 const defaultUriBr = !isLocalHost ? `${defaultUri}.br` : defaultUri;
 
                 console.log(`fetching: ${defaultUriBr}`);
@@ -156,54 +157,6 @@
                         });
                     });
                 });
-
-                //fetchPromise.then((response) => {
-                //    const originalResponseBufferPromise = response.arrayBuffer();
-                //    originalResponseBufferPromise.then((originalResponseBuffer) => {
-                //        const originalResponseArray = new Int8Array(originalResponseBuffer);
-                //        const decompressedResponseArray = BrotliDecode(originalResponseArray);
-
-                //        console.log(`fetched: ${defaultUriBr} ${originalResponseArray.length}/${decompressedResponseArray.length}`);
-
-                //        const contentType = type === 'dotnetwasm' ? 'application/wasm' : 'application/octet-stream';
-                //        return new Response(decompressedResponseArray, { headers: { 'content-type': contentType } });
-                //    });
-                //});
-                //return fetchPromise;
-
-                //return (async function () {
-                //    console.log(`fetching: ${defaultUriBr}`);
-                //    const response = await fetch(defaultUriBr, { cache: 'no-cache' });
-                //    if (!response.ok) {
-                //        throw new Error(response.statusText);
-                //    }
-                //    const originalResponseBuffer = await response.arrayBuffer();
-                //    const originalResponseArray = new Int8Array(originalResponseBuffer);
-                //    const decompressedResponseArray = BrotliDecode(originalResponseArray);
-
-                //    console.log(`fetched: ${defaultUriBr} ${originalResponseArray.length}/${decompressedResponseArray.length}`);
-
-                //    const contentType = type === 'dotnetwasm' ? 'application/wasm' : 'application/octet-stream';
-                //    return new Response(decompressedResponseArray, { headers: { 'content-type': contentType } });
-                //})();
-                //} else {
-                // https://github.com/dotnet/aspnetcore/issues/25165
-
-                //console.log(`fetching: ${defaultUri}`);
-
-                //const fetchPromise = fetch(defaultUri, {
-                //    cache: 'no-cache',
-                //    integrity: integrity,
-                //    headers: { 'MyCustomHeader': 'Stef Heyenrath' }
-                //});
-
-                //allResourcesBeingLoaded.push(fetchPromise);
-
-                //fetchPromise.then((response) => {
-                //    window.loadResourceCallback(allResourcesBeingLoaded.length, response.url);
-                //});
-                //return fetchPromise;
-                //}
             }
         });
     </script>

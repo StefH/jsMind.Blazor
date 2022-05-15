@@ -134,8 +134,9 @@
                     });
 
                     allResourcesBeingLoaded.push(fetchTask);
+
                     fetchTask.then((response) => {
-                        const originalResponseBuffer = await response.arrayBuffer();
+                        const originalResponseBuffer = response.arrayBuffer();
                         const originalResponseArray = new Int8Array(originalResponseBuffer);
                         const decompressedResponseArray = BrotliDecode(originalResponseArray);
 
@@ -174,6 +175,7 @@
                     });
 
                     allResourcesBeingLoaded.push(fetchTask);
+
                     fetchTask.then((response) => {
                         window.loadResourceCallback(allResourcesBeingLoaded.length, response.url);
                     });

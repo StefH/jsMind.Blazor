@@ -139,6 +139,21 @@
                         window.loadResourceCallback(allResourcesBeingLoaded.length, response.url);
                     });
 
+                    return new Promise((resolve, reject) => {
+                        fetchPromise.then((response) => {
+                            const originalResponseBufferPromise = response.arrayBuffer();
+                            originalResponseBufferPromise.then((originalResponseBuffer) => {
+                                const originalResponseArray = new Int8Array(originalResponseBuffer);
+                                const decompressedResponseArray = BrotliDecode(originalResponseArray);
+
+                                console.log(`fetched: ${defaultUriBr} ${originalResponseArray.length}/${decompressedResponseArray.length}`);
+
+                                const contentType = type === 'dotnetwasm' ? 'application/wasm' : 'application/octet-stream';
+                                resolve(new Response(decompressedResponseArray, { headers: { 'content-type': contentType } }));
+                            });
+                        });
+                    });
+
                     //fetchPromise.then((response) => {
                     //    const originalResponseBufferPromise = response.arrayBuffer();
                     //    originalResponseBufferPromise.then((originalResponseBuffer) => {
@@ -151,7 +166,7 @@
                     //        return new Response(decompressedResponseArray, { headers: { 'content-type': contentType } });
                     //    });
                     //});
-                    return fetchPromise;
+                    //return fetchPromise;
 
                     //return (async function () {
                     //    console.log(`fetching: ${defaultUriBr}`);

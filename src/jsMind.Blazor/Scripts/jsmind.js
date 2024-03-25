@@ -112,7 +112,7 @@
 
     // ============= static object =============================================
     jm.direction = { left: -1, center: 0, right: 1 };
-    jm.event_type = { show: 1, resize: 2, edit: 3, select: 4 };
+    jm.event_type = { show: 1, resize: 2, edit: 3, select: 4 , unselect: 5};
     jm.key = { meta: 1 << 13, ctrl: 1 << 12, alt: 1 << 11, shift: 1 << 10 };
 
     jm.node = function (sId, iIndex, sTopic, oData, bIsRoot, oParent, eDirection, bExpanded) {
@@ -1476,6 +1476,7 @@
             if (!!this.mind) {
                 this.mind.selected = null;
                 this.view.select_clear();
+                this.invoke_event_handle(jm.event_type.unselect, { evt: 'select_clear', data: [] });
             }
         },
 

@@ -78,6 +78,7 @@ namespace JsMind.Blazor.Components
                     // this.invoke_event_handle(jm.event_type.select, { evt: 'select_node', data: [], node: node.id });
 
                     var node = FindNode(evt.NodeId);
+                    SelectedNodes = new List<T> { node };
 
                     await OnSelectNode.InvokeAsync(new MindMapSingleSelectEventArgs<T>
                     {
@@ -98,6 +99,17 @@ namespace JsMind.Blazor.Components
                 Node = FindNode(evt.Id),
                 Nodes = SelectedNodes
             });
+        }
+
+        [JSInvokable]
+        public async ValueTask OnUnSelectCallback(InteropNodeEventData evt)
+        {
+            SelectedNodes = new List<T>();
+            await OnClearSelect.InvokeAsync(new ValueEventArgs<string>
+            {
+                Value = evt.NodeId
+            });
+            ;
         }
 
         protected abstract T? FindNode(string id);

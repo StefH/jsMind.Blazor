@@ -109,7 +109,6 @@ namespace JsMind.Blazor.Components
             {
                 Value = evt.NodeId
             });
-            ;
         }
 
         protected abstract T? FindNode(string id);

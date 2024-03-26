@@ -53,7 +53,7 @@ MindMap.show = function (dotnetReference, containerId, mindMapOptions, mindMapDa
                     
                 case 5:
                     console.log("Unselect")
-                    await dotnetReference.invokeMethodAsync("OnUnSelectCallback", data);
+                    await dotnetReference.invokeMethodAsync("OnUnselectCallback", data);
                     break;
             }
         }

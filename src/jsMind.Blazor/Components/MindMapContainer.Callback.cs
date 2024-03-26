@@ -102,7 +102,7 @@ namespace JsMind.Blazor.Components
         }
 
         [JSInvokable]
-        public async ValueTask OnUnSelectCallback(InteropNodeEventData evt)
+        public async ValueTask OnUnselectCallback(InteropNodeEventData evt)
         {
             SelectedNodes = new List<T>();
             await OnClearSelect.InvokeAsync(new ValueEventArgs<string>

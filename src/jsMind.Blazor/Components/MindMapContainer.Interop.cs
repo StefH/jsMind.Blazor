@@ -34,6 +34,8 @@ namespace JsMind.Blazor.Components
 
         public ValueTask SelectNode(T node)
         {
+            SelectedNodes.Clear();
+            SelectedNodes.Add(node);
             return Runtime.InvokeVoidAsync("MindMap.selectNode", _containerId, node.Id);
         }
 

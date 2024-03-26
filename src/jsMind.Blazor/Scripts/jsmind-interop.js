@@ -50,6 +50,10 @@ MindMap.show = function (dotnetReference, containerId, mindMapOptions, mindMapDa
                 case 4:
                     await dotnetReference.invokeMethodAsync("OnSelectCallback", data);
                     break;
+                    
+                case 5:
+                    await dotnetReference.invokeMethodAsync("OnUnselectCallback", data);
+                    break;
             }
         }
         catch (e) {

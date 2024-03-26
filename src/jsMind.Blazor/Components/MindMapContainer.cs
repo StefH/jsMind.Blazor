@@ -22,6 +22,9 @@ namespace JsMind.Blazor.Components
 
         [Parameter]
         public EventCallback<MindMapMultiSelectEventArgs<T>> OnMultiSelectNodes { get; set; }
+        
+        [Parameter]
+        public EventCallback<ValueEventArgs<string>> OnClearSelect { get; set; }
 
         [Parameter]
         public EventCallback<MindMapAddNodeEventArgs<T>> OnAddNode { get; set; }

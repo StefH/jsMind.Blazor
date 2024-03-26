@@ -34,8 +34,6 @@
 
 	<ItemGroup>
 		<None Include="../../PackageReadme.md" Pack="true" PackagePath=""/>
-		<None Include="wwwroot\jsmind-interop.js" />
-		<None Include="wwwroot\jsmind.js" />
 	</ItemGroup>
 
 	<ItemGroup>

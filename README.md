@@ -1,7 +1,7 @@
 # jsMind.Blazor
 A Blazor JSInterop wrapper for [jsMind](https://github.com/hizzgdev/jsmind).
 
-[![NuGet](https://buildstats.info/nuget/jsMind.Blazor)](https://www.nuget.org/packages/jsMind.Blazor)
+[![NuGet](https://img.shields.io/nuget/v/jsMind.Blazor)](https://www.nuget.org/packages/jsMind.Blazor)
 
 ![Example](https://raw.githubusercontent.com/StefH/jsMind.Blazor/master/resources/example.png "example")
 

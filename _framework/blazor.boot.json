@@ -1,0 +1,63 @@
+{
+  "entryAssembly": "jsMind.WASM.App",
+  "resources": {
+    "hash": "sha256-5h4PrlzNZMONAl6zasn2VMbAmxGOIejpVXcLnok++LY=",
+    "runtime": {
+      "dotnet.6.0.36.gwq1pilaic.js": "sha256-pu7MO47B6So4jcW6iY2UI11lBZYz2EQnJKiYNsOpNJg=",
+      "dotnet.timezones.blat": "sha256-vrFYQt55a4tGoDGoyRfjjGa1nSecx646RK78iTzPWCM=",
+      "dotnet.wasm": "sha256-tISvy4xFegogfGkIyyz9o/8bI+dPsrbp0/DIdANcHBI=",
+      "icudt_CJK.dat": "sha256-WPyI4hWDPnOw62Nr27FkzGjdbucZnQD+Ph+GOPhAedw=",
+      "icudt_EFIGS.dat": "sha256-4RwaPx87Z4dvn77ie/ro3/QzyS+/gGmO3Y/0CSAXw4k=",
+      "icudt_no_CJK.dat": "sha256-OxylFgLJlFqixsj+nLxYVsv5iZLvfIKMpLf9hrWaChA="
+    },
+    "assembly": {
+      "jsMind.Blazor.dll": "sha256-+x2bBAJ/9dnI42v9UA2Z8HD8IHufhbMqhAmZ77Fk+TQ=",
+      "jsMind.WASM.App.dll": "sha256-Lx8nG5DgvSyzGKR+RF/c29ap9iYDRB8kDZeWxBf3+Mk=",
+      "Microsoft.AspNetCore.Components.dll": "sha256-CeUHidya7soC63CIiC8CUVdjnK9bNYOEp/63wcsRQ/w=",
+      "Microsoft.AspNetCore.Components.Web.dll": "sha256-3LRkHoGuTxAt4un/eNjlxSTJHBi/RweRM1hL0Saa8C4=",
+      "Microsoft.AspNetCore.Components.WebAssembly.dll": "sha256-d4EfeXiZsQmdl6aZ6NEULU+Xrp2E9fDZ10Agr4WMos4=",
+      "Microsoft.Extensions.Configuration.Abstractions.dll": "sha256-Yd5HWoJ8z3pGHLdLRk56mDLrXa7AkXv9+C/CdwnvOCk=",
+      "Microsoft.Extensions.Configuration.dll": "sha256-qBPk1O/mfd/P9kDywnOU5wZ7vka6iecseJsfIp04HMY=",
+      "Microsoft.Extensions.Configuration.Json.dll": "sha256-qCkDd0PaEIJeCuBjIZeHopcREnNAfhCkOxkTfDvRJCU=",
+      "Microsoft.Extensions.DependencyInjection.Abstractions.dll": "sha256-mzm1DAyyFWnecg/KaGGQiR3B5/UTem38CQQX3Dk+1Z8=",
+      "Microsoft.Extensions.DependencyInjection.dll": "sha256-DG4t8WcZydm0E7u9Jba98S15iYEuwN/7Lc4ZxhOzolk=",
+      "Microsoft.Extensions.Logging.Abstractions.dll": "sha256-CVSCilm+KDv18ORRnt/rXZYKhqmHWldPYRwGeRNbLfg=",
+      "Microsoft.Extensions.Logging.dll": "sha256-rGXa3leYNXH/Cu3cszLotzdH8tyAVGZWAnSc7iI3kV4=",
+      "Microsoft.Extensions.Options.dll": "sha256-rKuFMNxPlPpYGIA4ZkgZ2osef/klzJh/awzaKp51bto=",
+      "Microsoft.Extensions.Primitives.dll": "sha256-QRewYnpJ6vl8gGMXBS2gN++/sQ9hKcuv+rhy586Bbxs=",
+      "Microsoft.JSInterop.dll": "sha256-Mo9nrYNrDUzgj14erb2tFqcFZARXanLt8QVlv3fkQN8=",
+      "Microsoft.JSInterop.WebAssembly.dll": "sha256-Fu9b3h5X0e7LvSjXzf7gMel0T48fy1JOlLde3zs4KyU=",
+      "netstandard.dll": "sha256-NLhRvB67XyzyRkH6AmyXh6vzfxnfmJ9/b9Oqe5CMa0o=",
+      "System.Collections.Concurrent.dll": "sha256-Du72SoWeQ48x354gmZpdSFJd+N+0aJdaYD2n87ELK5Q=",
+      "System.Collections.dll": "sha256-d7WlSWaFLcMzJg7lYU2ZXcjbpbrRGz/ATzG0fw/mWBQ=",
+      "System.ComponentModel.dll": "sha256-YzYpr0u1TBvUblFT2c0EMUTvgInrsws9AArNlb1TXQI=",
+      "System.Console.dll": "sha256-rVqml17cDvewaOSBnN3mroN6PpAeXcJgh0UHVM7two0=",
+      "System.Linq.dll": "sha256-p+teWehX3PBkbzbU5P0VUGWv3d929wxoFwXIict/o3I=",
+      "System.Memory.dll": "sha256-avh7xgpn9PZ070/dIMNwMjOEROOY8X68XCQqmxZe+iY=",
+      "System.Net.Http.dll": "sha256-ed28Jo7hfzRhkw2pCzP3AcB9BSG0lb9NN1doew2v0yk=",
+      "System.Net.Primitives.dll": "sha256-069Odo7vnDyNyKyrbxUlVsdm12XYTEJ77lu67tGnAuw=",
+      "System.Private.CoreLib.dll": "sha256-kBCi2UI6kDIg4xQNb/8xSLclDr7LY441RdoMibY8vnk=",
+      "System.Private.Runtime.InteropServices.JavaScript.dll": "sha256-99apOUrc2icXy3dhvIU5Ucj20tbbVzmlkAxI1Z+WrNM=",
+      "System.Private.Uri.dll": "sha256-kJU6WNC/2gK199SAIru2K+IXUDq+uPXc6w45PNndpc8=",
+      "System.Runtime.CompilerServices.Unsafe.dll": "sha256-GgRIr7NS93sUSAQCEL2kVPqYnoznlgMjiJHDHT+iukE=",
+      "System.Runtime.dll": "sha256-jdd8nHMtM9DmUXgdSc6qOrsWt9YKT7SoVICau40S7kU=",
+      "System.Text.Encodings.Web.dll": "sha256-lWdclCloD07MI+1xM03IY6mhQxEOZyYKjyETY9Qxrrs=",
+      "System.Text.Json.dll": "sha256-RNq0YU+QUtCgzQlNxvD97OfZDgc7e4zSCqeJxOIkRZM="
+    },
+    "runtimeAssets": {
+      "dotnet.wasm": {
+        "hash": "sha256-tISvy4xFegogfGkIyyz9o/8bI+dPsrbp0/DIdANcHBI=",
+        "behavior": "dotnetwasm"
+      }
+    }
+  },
+  "cacheBootResources": true,
+  "debugBuild": false,
+  "debugLevel": 0,
+  "linkerEnabled": true,
+  "config": [],
+  "icuDataMode": 0,
+  "extensions": {
+    "blazor": {}
+  }
+}
